@@ -1,5 +1,7 @@
 package org.udec.proyecto;
 
+import java.util.ArrayList;
+
 public interface FormatoTorneo {
-    void generarPartidos();
+    void generarPartidos(ArrayList<Participante> participantes);
 }

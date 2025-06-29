@@ -1,12 +1,16 @@
 package org.udec.proyecto;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Torneo {
     private String nombre;
     private String disciplina;
+    private ArrayList<Participante> participantes;
 
     public Torneo(String nombre, String disciplina) {
         this.nombre = nombre;
         this.disciplina = disciplina;
+        this.participantes = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -23,5 +27,32 @@ public class Torneo {
 
     public void setDisciplina(String disciplina) {
         this.disciplina = disciplina;
+    }
+
+    /**
+     * Añade un participante al torneo
+     *
+     * @param participante el participante que sera añadido
+     */
+    public void addParticipante(Participante participante) {
+        participantes.add(participante);
+    }
+
+    /**
+     * Elimina un participante del torneo
+     *
+     * @param participante el participante que sera eliminado
+     */
+    public void removeParticipante(Participante participante) {
+        participantes.remove(participante);
+    }
+
+    /**
+     * Devuelve la lista de participantes
+     *
+     * @return la lista de participantes
+     */
+    public ArrayList<Participante> getParticipantes() {
+        return participantes;
     }
 }

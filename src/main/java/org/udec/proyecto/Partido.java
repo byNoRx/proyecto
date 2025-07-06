@@ -19,6 +19,22 @@ public class Partido {
         ganador = null;
     }
 
+    public void setParticipanteA(Participante participanteA) {
+        this.participanteA = participanteA;
+    }
+
+    public Participante getParticipanteA() {
+        return participanteA;
+    }
+
+    public void setParticipanteB(Participante participanteB) {
+        this.participanteB = participanteB;
+    }
+
+    public Participante getParticipanteB() {
+        return participanteB;
+    }
+
     public void setPuntajeA(int puntajeA) {
         this.puntajeA = puntajeA;
     }

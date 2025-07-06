@@ -5,7 +5,11 @@ import java.time.LocalDate;
 
 public class FormatoEliminatoriaDirecta implements FormatoTorneo {
     @Override
-    public void generarPartidos(ArrayList<Participante> participantes, ArrayList<Partido> partidos, LocalDate fechaDeInicio, int diasEntreRondas) {
+    public void generarPartidos(ArrayList<Participante> participantes, ArrayList<Partido> partidos, LocalDate fechaDeInicio, int diasEntreRondas) throws ParticipantesInsuficientesException {
+        if (participantes.size() < 2) {
+            throw new ParticipantesInsuficientesException("El torneo debe tener al menos 2 participantes.");
+        }
+
         int numParticipantes = participantes.size();
         int numPartidos = numParticipantes / 2;
         int numParticipantesSobrantes = numParticipantes % 2;

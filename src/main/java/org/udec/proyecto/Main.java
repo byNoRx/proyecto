@@ -20,7 +20,7 @@ public class Main {
 
         System.out.println(torneo.getNombre() + ", " + torneo.getDisciplina() + ", " + torneo.getFormato() + ", " + torneo.getFechaDeInicio() + ", " + torneo.getDiasEntreRondas());
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 2; i++) {
             JugadorBuilder jugadorBuilder = new JugadorBuilder();
             jugadorBuilder.setNombre("[Nombre del jugador" + i + "]");
             jugadorBuilder.setEmail("[Email del jugador" + i + "]");
@@ -33,7 +33,12 @@ public class Main {
             System.out.println(participante.getNombre());
         }
         
-        torneo.generarPartidos();
+        try {
+            torneo.generarPartidos();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
         System.out.println("Partidos: " + torneo.getPartidos().size());
         for (Partido partido : torneo.getPartidos()) {
             System.out.println(partido.getFecha() + " " + partido.getParticipanteA() + " vs " + partido.getParticipanteB());

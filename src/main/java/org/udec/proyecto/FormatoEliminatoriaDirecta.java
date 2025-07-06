@@ -1,9 +1,17 @@
 package org.udec.proyecto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.time.LocalDate;
 
+
 public class FormatoEliminatoriaDirecta implements FormatoTorneo {
+    @Override
+    public void ordenarParticipantes(ArrayList<Participante> participantes) {
+        // Ordenar los participantes de manera aleatoria
+        Collections.shuffle(participantes);
+    }
+
     @Override
     public void generarPartidos(ArrayList<Participante> participantes, ArrayList<Partido> partidos, LocalDate fechaDeInicio, int diasEntreRondas) throws ParticipantesInsuficientesException {
         if (participantes.size() < 2) {
@@ -28,4 +36,9 @@ public class FormatoEliminatoriaDirecta implements FormatoTorneo {
             ronda++;
         }
     }
+
+    public void asignarParticipantes(ArrayList<Participante> participantes) {
+        // TODO: Implementar la asignación de los participantes en la eliminatoria directa.
+    }
+
 }

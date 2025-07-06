@@ -13,6 +13,7 @@ public class FormatoEliminatoriaDirecta implements FormatoTorneo {
         int numParticipantes = participantes.size();
         int numPartidos = numParticipantes / 2;
         int numParticipantesSobrantes = numParticipantes % 2;
+        int ronda = 1;
         LocalDate fechaPartido = fechaDeInicio;
         while (numPartidos > 0) {
             for (int i = 0; i < numPartidos; i++) {
@@ -24,6 +25,7 @@ public class FormatoEliminatoriaDirecta implements FormatoTorneo {
             numParticipantesSobrantes = numParticipantes % 2;
 
             fechaPartido = fechaPartido.plusDays(diasEntreRondas);
+            ronda++;
         }
     }
 }

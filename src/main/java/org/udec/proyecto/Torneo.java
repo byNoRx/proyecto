@@ -14,6 +14,10 @@ public class Torneo {
         this.participantes = new ArrayList<>();
     }
 
+    public void generarPartidos() {
+        formato.generarPartidos(participantes);
+    }
+
     public String getNombre() {
         return nombre;
     }

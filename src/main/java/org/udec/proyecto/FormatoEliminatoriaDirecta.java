@@ -1,9 +1,10 @@
 package org.udec.proyecto;
+
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class FormatoEliminatoriaDirecta implements FormatoTorneo {
     @Override
-        // TODO: Implementar la generación de la eliminatoria directa.
-    public void generarPartidos(ArrayList<Participante> participantes, ArrayList<Partido> partidos) {
+    public void generarPartidos(ArrayList<Participante> participantes, ArrayList<Partido> partidos, LocalDate fechaDeInicio, int diasEntreRondas) {
     }
 }

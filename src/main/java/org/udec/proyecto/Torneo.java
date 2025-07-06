@@ -1,5 +1,7 @@
 package org.udec.proyecto;
+
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Torneo {
     private String nombre;
@@ -7,17 +9,21 @@ public class Torneo {
     private FormatoTorneo formato;
     private ArrayList<Participante> participantes;
     private ArrayList<Partido> partidos;
+    private LocalDate fechaDeInicio;
+    private int diasEntreRondas;
 
-    public Torneo(String nombre, String disciplina, FormatoTorneo formato) {
+    public Torneo(String nombre, String disciplina, FormatoTorneo formato, LocalDate fechaDeInicio, int diasEntreRondas) {
         this.nombre = nombre;
         this.disciplina = disciplina;
         this.formato = formato;
         this.participantes = new ArrayList<>();
         this.partidos = new ArrayList<>();
+        this.fechaDeInicio = fechaDeInicio;
+        this.diasEntreRondas = diasEntreRondas;
     }
 
     public void generarPartidos() {
-        formato.generarPartidos(participantes, partidos);
+        formato.generarPartidos(participantes, partidos, fechaDeInicio, diasEntreRondas);
     }
 
     public String getNombre() {

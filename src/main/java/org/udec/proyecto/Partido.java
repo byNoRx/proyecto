@@ -19,6 +19,17 @@ public class Partido {
         ganador = null;
     }
 
+    /**
+     * Calcula el ganador del partido
+     */
+    public void calcularGanador() {
+        if (puntajeA > puntajeB) {
+            ganador = participanteA;
+        } else if (puntajeB > puntajeA) {
+            ganador = participanteB;
+        }
+    }
+
     public void setParticipanteA(Participante participanteA) {
         this.participanteA = participanteA;
     }
@@ -65,13 +76,5 @@ public class Partido {
 
     public Participante getGanador() {
         return ganador;
-    }
-
-    public void calcularGanador() {
-        if (puntajeA > puntajeB) {
-            ganador = participanteA;
-        } else if (puntajeB > puntajeA) {
-            ganador = participanteB;
-        }
     }
 }

@@ -11,8 +11,8 @@ public class Partido {
     private int puntajeB;
     private Participante ganador;
 
-    public Partido(LocalDate fecha) {
-        this.ronda = 0;
+    public Partido(LocalDate fecha, int ronda) {
+        this.ronda = ronda;
         this.fecha = fecha;
         this.participanteA = null;
         this.participanteB = null;

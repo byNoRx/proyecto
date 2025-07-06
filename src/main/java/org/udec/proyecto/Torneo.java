@@ -50,6 +50,22 @@ public class Torneo {
         this.formato = formato;
     }
 
+    public LocalDate getFechaDeInicio() {
+        return fechaDeInicio;
+    }
+
+    public void setFechaDeInicio(LocalDate fechaDeInicio) {
+        this.fechaDeInicio = fechaDeInicio;
+    }
+
+    public int getDiasEntreRondas() {
+        return diasEntreRondas;
+    }
+
+    public void setDiasEntreRondas(int diasEntreRondas) {
+        this.diasEntreRondas = diasEntreRondas;
+    }
+
     /**
      * Añade un participante al torneo
      *

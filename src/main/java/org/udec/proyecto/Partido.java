@@ -12,6 +12,7 @@ public class Partido {
     private Participante ganador;
 
     public Partido(LocalDate fecha) {
+        this.ronda = 0;
         this.fecha = fecha;
         this.participanteA = null;
         this.participanteB = null;

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Partido {
     private LocalDate fecha;
+    private int ronda;
     private Participante participanteA;
     private Participante participanteB;
     private int puntajeA;
@@ -29,6 +30,8 @@ public class Partido {
             ganador = participanteB;
         }
     }
+
+    // Getters y Setters
 
     public void setParticipanteA(Participante participanteA) {
         this.participanteA = participanteA;
@@ -76,5 +79,13 @@ public class Partido {
 
     public Participante getGanador() {
         return ganador;
+    }
+
+    public int getRonda() {
+        return ronda;
+    }
+
+    public void setRonda(int ronda) {
+        this.ronda = ronda;
     }
 }

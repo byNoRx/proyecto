@@ -29,6 +29,8 @@ public class Torneo {
         formato.generarPartidos(participantes, partidos, fechaDeInicio, diasEntreRondas);
     }
 
+    // ToDo: añadir métodos para administrar partidos (establecer puntajes y establecer ganadores)
+
     /**
      * Añade un participante al torneo
      *

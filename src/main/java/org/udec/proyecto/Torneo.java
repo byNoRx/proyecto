@@ -17,7 +17,7 @@ public class Torneo {
     }
 
     public void generarPartidos() {
-        formato.generarPartidos(participantes);
+        formato.generarPartidos(participantes, partidos);
     }
 
     public String getNombre() {

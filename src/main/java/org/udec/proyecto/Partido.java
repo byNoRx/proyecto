@@ -3,17 +3,17 @@ package org.udec.proyecto;
 import java.time.LocalDate;
 
 public class Partido {
+    private LocalDate fecha;
     private Participante participanteA;
     private Participante participanteB;
-    private LocalDate fecha;
     private int puntajeA;
     private int puntajeB;
     private Participante ganador;
 
-    public Partido(Participante participanteA, Participante participanteB, LocalDate fecha) {
-        this.participanteA = participanteA;
-        this.participanteB = participanteB;
+    public Partido(LocalDate fecha) {
         this.fecha = fecha;
+        this.participanteA = null;
+        this.participanteB = null;
         puntajeA = 0;
         puntajeB = 0;
         ganador = null;

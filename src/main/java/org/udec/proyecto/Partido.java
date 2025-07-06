@@ -14,4 +14,21 @@ public class Partido {
         puntajeB = 0;
         ganador = null;
     }
+
+    public void setPuntajeA(int puntajeA) {
+        this.puntajeA = puntajeA;
+    }
+
+    public int getPuntajeA() {
+        return puntajeA;
+    }
+
+    public void setPuntajeB(int puntajeB) {
+        this.puntajeB = puntajeB;
+    }
+
+    public int getPuntajeB() {
+        return puntajeB;
+    }
+
 }

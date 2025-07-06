@@ -1,16 +1,19 @@
 package org.udec.proyecto;
 
+import java.time.LocalDate;
+
 public class Partido {
     private Participante participanteA;
     private Participante participanteB;
-    private 
+    private LocalDate fecha;
     private int puntajeA;
     private int puntajeB;
     private Participante ganador;
 
-    public Partido(Participante participanteA, Participante participanteB) {
+    public Partido(Participante participanteA, Participante participanteB, LocalDate fecha) {
         this.participanteA = participanteA;
         this.participanteB = participanteB;
+        this.fecha = fecha;
         puntajeA = 0;
         puntajeB = 0;
         ganador = null;
@@ -30,6 +33,14 @@ public class Partido {
 
     public int getPuntajeB() {
         return puntajeB;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
     }
 
     public void setGanador(Participante ganador) {

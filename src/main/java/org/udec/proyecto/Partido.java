@@ -3,6 +3,7 @@ package org.udec.proyecto;
 public class Partido {
     private Participante participanteA;
     private Participante participanteB;
+    private 
     private int puntajeA;
     private int puntajeB;
     private Participante ganador;
@@ -31,12 +32,19 @@ public class Partido {
         return puntajeB;
     }
 
+    public void setGanador(Participante ganador) {
+        this.ganador = ganador;
+    }
+
     public Participante getGanador() {
+        return ganador;
+    }
+
+    public void calcularGanador() {
         if (puntajeA > puntajeB) {
             ganador = participanteA;
         } else if (puntajeB > puntajeA) {
             ganador = participanteB;
         }
-        return ganador;
     }
 }

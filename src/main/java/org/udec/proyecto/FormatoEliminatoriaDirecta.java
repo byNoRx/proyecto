@@ -17,7 +17,7 @@ public class FormatoEliminatoriaDirecta implements FormatoTorneo {
         LocalDate fechaPartido = fechaDeInicio;
         while (numPartidos > 0) {
             for (int i = 0; i < numPartidos; i++) {
-                partidos.add(new Partido(fechaPartido));
+                partidos.add(new Partido(fechaPartido, ronda));
             }
 
             numParticipantes = numPartidos + numParticipantesSobrantes;

@@ -31,4 +31,12 @@ public class Partido {
         return puntajeB;
     }
 
+    public Participante getGanador() {
+        if (puntajeA > puntajeB) {
+            ganador = participanteA;
+        } else if (puntajeB > puntajeA) {
+            ganador = participanteB;
+        }
+        return ganador;
+    }
 }

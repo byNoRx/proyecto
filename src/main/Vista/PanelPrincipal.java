@@ -21,7 +21,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
         BigPanel3=new JPanel();
         BigPanel3.setPreferredSize(new Dimension(700, 700));
 
-        panel3= new PanelRED();
+        panel3= new PanelCrearTorneo();
 
 
 

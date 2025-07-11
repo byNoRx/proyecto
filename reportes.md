@@ -47,3 +47,24 @@ excepciones personalizadas, la interfaz de usuario y los tests unitarios.
 Dudas:
 ¿Usar el patrón de diseño "Strategy" para hacer los formatos del torneo es
 una buena idea?
+
+................................................................................
+
+REPORTE SEMANAL 3
+
+Número de grupo: 
+12
+
+Link repositorio: 
+https://github.com/byNoRx/proyecto
+
+¿Qué han avanzado?: 
+Se implementó la clase Partido, la generación de partidos y fechas con el 
+formato eliminatoria directa. Se añadió una excepciones personalizada cuando el,
+número de participantes en el torneo es insuficiente al generar los partidos,
+se empezó a implementar la interfaz de usuario.
+
+¿Qué planean avanzar?:
+Añadir métodos para ajustar el torneo, terminar de implementar la interfaz 
+de usuario, los formatos de torneo, los tests unitarios y hacer diagrama de 
+clases UML.

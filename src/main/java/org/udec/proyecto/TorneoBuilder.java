@@ -1,9 +1,13 @@
 package org.udec.proyecto;
 
+import java.time.LocalDate;
+
 public class TorneoBuilder {
     private String nombre;
     private String disciplina;
     private FormatoTorneo formato;
+    private LocalDate fechaDeInicio;
+    private int diasEntreRondas;
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -17,7 +21,15 @@ public class TorneoBuilder {
         this.formato = formato;
     }
 
+    public void setFechaDeInicio(LocalDate fechaDeInicio) {
+        this.fechaDeInicio = fechaDeInicio;
+    }
+
+    public void setDiasEntreRondas(int diasEntreRondas) {
+        this.diasEntreRondas = diasEntreRondas;
+    }
+
     public Torneo getResult() {
-        return new Torneo(nombre, disciplina, formato);
+        return new Torneo(nombre, disciplina, formato, fechaDeInicio, diasEntreRondas);
     }
 }

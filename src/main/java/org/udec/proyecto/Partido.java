@@ -23,6 +23,22 @@ public class Partido {
         ganador = null;
     }
 
+    public void setPartidoSiguiente(Partido partidoSiguiente) {
+        this.partidoSiguiente = partidoSiguiente;
+    }
+
+    public Partido getPartidoSiguiente() {
+        return partidoSiguiente;
+    }
+
+    public void setPartidosConectados(int partidosConectados) {
+        this.partidosConectados = partidosConectados;
+    }
+
+    public int getPartidosConectados() {
+        return partidosConectados;
+    }
+
     /**
      * Calcula el ganador del partido
      */

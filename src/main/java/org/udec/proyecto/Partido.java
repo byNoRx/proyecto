@@ -10,6 +10,7 @@ public class Partido {
     private int puntajeA;
     private int puntajeB;
     private Participante ganador;
+    private Partido partidoSiguiente;
 
     public Partido(LocalDate fecha, int ronda) {
         this.ronda = ronda;

@@ -23,13 +23,10 @@ public class Torneo {
     }
     /**
      * Genera los partidos del torneo.
-     * @throws ParticipantesInsuficientesException 
      */
     public void generarPartidos() throws ParticipantesInsuficientesException {
         formato.generarPartidos(participantes, partidos, fechaDeInicio, diasEntreRondas);
     }
-
-    // ToDo: añadir métodos para administrar partidos (establecer puntajes y establecer ganadores)
 
     /**
      * Añade un participante al torneo

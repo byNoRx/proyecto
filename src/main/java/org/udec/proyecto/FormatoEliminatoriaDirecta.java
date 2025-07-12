@@ -20,30 +20,34 @@ public class FormatoEliminatoriaDirecta implements FormatoTorneo {
             throw new ParticipantesInsuficientesException("El torneo debe tener al menos 2 participantes.");
         }
 
-        int numParticipantes = participantes.size();
-        int numPartidos = numParticipantes / 2;
-        int numParticipantesSobrantes = numParticipantes % 2;
-        int ronda = 1;
+        ArrayList<Participante> actualRonda = new ArrayList<>(participantes);
         LocalDate fechaPartido = fechaDeInicio;
-        while (numPartidos > 0) {
-            for (int i = 0; i < numPartidos; i++) {
-                partidos.add(new Partido(fechaPartido, ronda));
+        int ronda = 1;
+
+        while (actualRonda.size() > 1) {
+            ArrayList<Participante> siguienteRonda = new ArrayList<>();
+
+            for (int i = 0; i < actualRonda.size(); i += 2) {
+                if (i + 1 < actualRonda.size()) {
+                    Partido partido = new Partido(fechaPartido, ronda);
+                    partido.setParticipanteA(actualRonda.get(i));
+                    partido.setParticipanteB(actualRonda.get(i + 1));
+                    partidos.add(partido);
+
+                    siguienteRonda.add(null);
+                } else {
+                    siguienteRonda.add(actualRonda.get(i));
+                }
             }
 
-            numParticipantes = numPartidos + numParticipantesSobrantes;
-            numPartidos = numParticipantes / 2;
-            numParticipantesSobrantes = numParticipantes % 2;
-
+            actualRonda = siguienteRonda;
             fechaPartido = fechaPartido.plusDays(diasEntreRondas);
             ronda++;
         }
+
+        conectarPartidos(partidos);
     }
 
-    public void asignarParticipantes(ArrayList<Participante> participantes) {
-        // TODO: Implementar la asignación de los participantes en la eliminatoria directa.
-    }
-
-}
     @Override
     public void conectarPartidos(ArrayList<Partido> partidos) {
         for (Partido partido1 : partidos) {

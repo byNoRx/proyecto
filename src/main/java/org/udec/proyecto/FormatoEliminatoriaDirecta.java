@@ -46,4 +46,14 @@ public class FormatoEliminatoriaDirecta implements FormatoTorneo {
 }
     @Override
     public void conectarPartidos(ArrayList<Partido> partidos) {
+        for (Partido partido1 : partidos) {
+            for (Partido partido2 : partidos) {
+                if (partido2.getRonda() == partido1.getRonda() + 1 && partido2.getPartidosConectados() < 2) {
+                    partido1.setPartidoSiguiente(partido2);
+                    partido2.setPartidosConectados(partido2.getPartidosConectados() + 1);
+                    break;
+                }
+            }
+        }
+    }
 }

@@ -42,3 +42,6 @@ public class FormatoEliminatoriaDirecta implements FormatoTorneo {
     }
 
 }
+    @Override
+    public void conectarPartidos(ArrayList<Partido> partidos) {
+}

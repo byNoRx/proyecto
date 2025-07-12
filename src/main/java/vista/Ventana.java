@@ -7,7 +7,7 @@ public class Ventana extends JFrame {
     public Ventana() {
         setTitle("Interfaz de Torneos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1200, 600);
+        setSize(1200, 900);
         setLayout(new BorderLayout());
 
         // Agregar panel de lista a la izquierda

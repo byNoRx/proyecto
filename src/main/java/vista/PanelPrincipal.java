@@ -27,7 +27,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
 
 
-        panel4= new PanelGreen();
+        panel4= new PanelEliminarTorneos();
 
 
         BigPanel4=new JPanel();

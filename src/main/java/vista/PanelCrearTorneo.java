@@ -7,67 +7,78 @@ import java.awt.event.ActionListener;
 
 public class PanelCrearTorneo extends JPanel implements ActionListener {
     private JButton botonLista;
-    private JButton avanzar;
-    private JButton atras;
-    private int contador = 0;
 
-    private JTextField textField;
+    private Checkbox checkbox1, checkbox2, checkbox3, checkbox4, checkbox5, checkbox6;
+
+    private JTextField textFieldNombre;
+    private JTextField textFieldDisciplina;
     private JPanel topPanel;
     private JPanel centerPanel;
+    private JPanel lowerPanel;
 
     public PanelCrearTorneo() {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(600, 600));
+        setPreferredSize(new Dimension(600, 900));
 
-        topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        // Crear grupos de checkboxes
+        CheckboxGroup grupo1 = new CheckboxGroup();
+        CheckboxGroup grupo2 = new CheckboxGroup();
+        CheckboxGroup grupo3 = new CheckboxGroup();
+
+        checkbox1 = new Checkbox("Formato1", grupo1, false);
+        checkbox2 = new Checkbox("formato2", grupo1, false);
+        checkbox3 = new Checkbox("Formato3", grupo1, false);
+        checkbox3.setVisible(false);
+
+        checkbox4 = new Checkbox("Eliminación simple", grupo2, false);
+        checkbox5 = new Checkbox("Eliminación doble", grupo2, false);
+        checkbox6 = new Checkbox("Liga", grupo2, false);
+
+
+
+        // Panel superior con nombre y disciplina
+        topPanel = new JPanel(new GridLayout(3, 1, 10, 10));
         add(topPanel, BorderLayout.NORTH);
 
-        centerPanel = new JPanel();
-        add(centerPanel, BorderLayout.CENTER);
-
         botonLista = new JButton("Crear Torneo");
-        avanzar = new JButton("Avanzar");
-        atras = new JButton("Atras");
-
         botonLista.addActionListener(this);
-        avanzar.addActionListener(this);
-        atras.addActionListener(this);
-
         topPanel.add(botonLista);
 
-        textField = new JTextField(20);
-        textField.setHorizontalAlignment(JTextField.CENTER);
+        JPanel nombrePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel nombreLabel = new JLabel("Nombre:");
+        textFieldNombre = new JTextField(15);
+        nombrePanel.add(nombreLabel);
+        nombrePanel.add(textFieldNombre);
+        topPanel.add(nombrePanel);
+
+        JPanel disciplinaPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel labelDisciplina = new JLabel("Disciplina:");
+        textFieldDisciplina = new JTextField(15);
+        disciplinaPanel.add(labelDisciplina);
+        disciplinaPanel.add(textFieldDisciplina);
+        topPanel.add(disciplinaPanel);
+
+        // Panel central con checkboxes alineados en filas y columnas
+        centerPanel = new JPanel(new GridLayout(2, 3, 20, 20));
+        centerPanel.setBorder(BorderFactory.createTitledBorder("Opciones de Formato"));
+        add(centerPanel, BorderLayout.CENTER);
+        centerPanel.setBackground(Color.LIGHT_GRAY);
+
+        centerPanel.add(checkbox1);
+        centerPanel.add(checkbox2);
+        centerPanel.add(checkbox3);
+        centerPanel.add(checkbox4);
+        centerPanel.add(checkbox5);
+        centerPanel.add(checkbox6);
+
+
+        // Panel inferior
+        lowerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        lowerPanel.setBackground(Color.BLACK);
+        add(lowerPanel, BorderLayout.SOUTH);
     }
 
     private void updateScreen() {
-        centerPanel.removeAll();
-
-        switch (contador) {
-            case 0:
-                topPanel.removeAll();
-                topPanel.add(botonLista);
-                break;
-            case 1:
-                topPanel.removeAll();
-                topPanel.add(atras);
-                topPanel.add(avanzar);
-                // Show text field in center
-                centerPanel.add(new JLabel("NOMBRE TORNEO:"));
-                centerPanel.add(textField);
-                break;
-            case 2:
-                topPanel.removeAll();
-                topPanel.add(atras);
-                topPanel.add(avanzar);
-                centerPanel.add(new JLabel("Pantalla 2"));
-                break;
-            case 3:
-                topPanel.removeAll();
-                topPanel.add(atras);
-                centerPanel.add(new JLabel("Pantalla Final"));
-                break;
-        }
-
         revalidate();
         repaint();
     }
@@ -75,21 +86,7 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonLista) {
-            contador = 1;
             updateScreen();
-        } else if (e.getSource() == avanzar) {
-            if (contador < 3) {
-                contador++;
-                updateScreen();
-            }
-        } else if (e.getSource() == atras) {
-            if (contador > 1) {
-                contador--;
-                updateScreen();
-            } else {
-                contador = 0;
-                updateScreen();
-            }
         }
     }
 }

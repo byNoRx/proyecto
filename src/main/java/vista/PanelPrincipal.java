@@ -7,27 +7,39 @@ import java.awt.event.ActionListener;
 
 
 public class PanelPrincipal extends JPanel implements ActionListener {
+
     private JPanel BigPanel, panel1,panel2,BigPanel2,panel3,BigPanel3,panel4,BigPanel4,panel5;
     private JButton boton1, boton2, boton3, boton4,boton5,boton6,boton7,boton8,boton9,boton10;
 
     public PanelPrincipal() {
+
+
+        DefaultListModel<String> modeloCompartido = new DefaultListModel<>();
+        modeloCompartido.addElement("Torneo A");
+        modeloCompartido.addElement("Torneo B");
+        modeloCompartido.addElement("Torneo C");
+        modeloCompartido.addElement("Torneo D");
+
+        PanelLista panelLista = new PanelLista(modeloCompartido);
+        PanelEliminarTorneos panelEliminar = new PanelEliminarTorneos(modeloCompartido);
+
         setLayout(new BorderLayout());
         setBackground(Color.white);
 
         BigPanel = new JPanel();
 
-        panel2=new PanelLista();
+        panel2=new PanelLista(modeloCompartido);
         BigPanel2=new JPanel();
         BigPanel2.setPreferredSize(new Dimension(700, 700));
 
         BigPanel3=new JPanel();
         BigPanel3.setPreferredSize(new Dimension(700, 700));
 
-        panel3= new PanelCrearTorneo();
+        panel3= new PanelCrearTorneo(modeloCompartido);
 
 
 
-        panel4= new PanelEliminarTorneos();
+        panel4= new PanelEliminarTorneos(modeloCompartido);
 
 
         BigPanel4=new JPanel();

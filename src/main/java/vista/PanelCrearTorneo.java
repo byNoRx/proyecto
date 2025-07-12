@@ -15,8 +15,9 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
     private JPanel topPanel;
     private JPanel centerPanel;
     private JPanel lowerPanel;
-
-    public PanelCrearTorneo() {
+    private DefaultListModel<String> torneoModel;
+    public PanelCrearTorneo(DefaultListModel<String> torneoModel) {
+        this.torneoModel = torneoModel;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 900));
 
@@ -86,7 +87,17 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonLista) {
-            updateScreen();
+        String nombre = textFieldNombre.getText().trim();
+
+        if (!nombre.isEmpty()) {
+            torneoModel.addElement(nombre);
+            textFieldNombre.setText("");
+            JOptionPane.showMessageDialog(this,"torneo creado");
+        } else {
+            JOptionPane.showMessageDialog(this, "El campo de nombre está vacío.");
+        }
+
+        updateScreen();
         }
     }
 }

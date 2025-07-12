@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelLista extends JPanel {
-    public PanelLista() {
+    private JList<String> torneoList;
+
+    public PanelLista(DefaultListModel<String> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 600));
         setBackground(Color.LIGHT_GRAY);
@@ -14,9 +16,9 @@ public class PanelLista extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         add(titleLabel, BorderLayout.NORTH);
 
-        String[] torneos = {"Torneo A", "Torneo B", "Torneo C", "Torneo D"};
-        JList<String> torneoList = new JList<>(torneos);
+        torneoList = new JList<>(torneoModel);
         torneoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         JScrollPane scrollPane = new JScrollPane(torneoList);
         add(scrollPane, BorderLayout.CENTER);
     }

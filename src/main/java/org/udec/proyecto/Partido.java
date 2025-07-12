@@ -26,7 +26,6 @@ public class Partido {
     /**
      * Calcula el ganador del partido
      */
-    public void calcularGanador() {
     public void terminarPartido() {
         if (puntajeA > puntajeB) {
             ganador = participanteA;

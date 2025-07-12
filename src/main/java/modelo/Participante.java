@@ -1,4 +1,4 @@
-package org.udec.proyecto;
+package modelo;
 
 public abstract class Participante {
     private String nombre;

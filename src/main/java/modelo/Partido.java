@@ -1,4 +1,4 @@
-package org.udec.proyecto;
+package modelo;
 
 import java.time.LocalDate;
 

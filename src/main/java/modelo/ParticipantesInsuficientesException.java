@@ -1,4 +1,4 @@
-package org.udec.proyecto;
+package modelo;
 
 public class ParticipantesInsuficientesException extends Exception {
     public ParticipantesInsuficientesException(String mensaje) {

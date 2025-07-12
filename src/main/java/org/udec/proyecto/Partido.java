@@ -31,6 +31,17 @@ public class Partido {
         } else if (puntajeB > puntajeA) {
             ganador = participanteB;
         }
+        if (partidoSiguiente == null) {
+            return;
+        }
+        // Si el partido siguiente no tiene participante A, el ganador de este partido se pone como participante A
+        if (partidoSiguiente.getParticipanteA() == null) {
+            partidoSiguiente.setParticipanteA(ganador);
+        }
+        // Si el partido siguiente Sí tiene participante A, el ganador de este partido se pone como participante B
+        else {
+            partidoSiguiente.setParticipanteB(ganador);
+        }
     }
 
     // Getters y Setters

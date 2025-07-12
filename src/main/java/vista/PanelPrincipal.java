@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 
 public class PanelPrincipal extends JPanel implements ActionListener {
 
-    private JPanel BigPanel, panel1,panel2,BigPanel2,panel3,BigPanel3,panel4,BigPanel4,panel5;
-    private JButton boton1, boton2, boton3, boton4,boton5,boton6,boton7,boton8,boton9,boton10;
+    private JPanel BigPanel, panel1, panel2, BigPanel2, panel3, BigPanel3, panel4, BigPanel4, panel5, BigPanel5;
+    private JButton boton1, boton2, boton3, boton4, boton5, boton6, boton7, boton8, boton9, boton10;
 
     public PanelPrincipal() {
 
@@ -28,21 +28,24 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
         BigPanel = new JPanel();
 
-        panel2=new PanelLista(modeloCompartido);
-        BigPanel2=new JPanel();
+        panel2 = new PanelLista(modeloCompartido);
+        BigPanel2 = new JPanel();
         BigPanel2.setPreferredSize(new Dimension(700, 700));
 
-        BigPanel3=new JPanel();
+        BigPanel3 = new JPanel();
         BigPanel3.setPreferredSize(new Dimension(700, 700));
 
-        panel3= new PanelCrearTorneo(modeloCompartido);
+        BigPanel5=new JPanel();
+
+        panel3 = new PanelCrearTorneo(modeloCompartido);
 
 
+        panel4 = new PanelEliminarTorneos(modeloCompartido);
 
-        panel4= new PanelEliminarTorneos(modeloCompartido);
+        panel5 = new PanelGestionarTorneos(modeloCompartido);
 
 
-        BigPanel4=new JPanel();
+        BigPanel4 = new JPanel();
         BigPanel3.setPreferredSize(new Dimension(700, 700));
 
         panel1 = new JPanel(new GridLayout(0, 1, 100, 50));
@@ -73,6 +76,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
         BigPanel2.add(panel2);
         BigPanel3.add(panel3);
         BigPanel4.add(panel4);
+        BigPanel5.add(panel5);
         BigPanel.setBackground(Color.GRAY);
 
         panel1.add(boton1);
@@ -82,6 +86,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
         panel1.add(boton5);
 
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == boton1) {
@@ -103,6 +108,14 @@ public class PanelPrincipal extends JPanel implements ActionListener {
             this.removeAll();
             this.add(BigPanel, BorderLayout.WEST);
             this.add(BigPanel4, BorderLayout.CENTER);
+
+
+            SwingUtilities.updateComponentTreeUI(this);
+        }
+        if (e.getSource() == boton4) {
+            this.removeAll();
+            this.add(BigPanel, BorderLayout.WEST);
+            this.add(BigPanel5, BorderLayout.CENTER);
 
 
             SwingUtilities.updateComponentTreeUI(this);

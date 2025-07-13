@@ -12,6 +12,8 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
 
     private JTextField textFieldNombre;
     private JTextField textFieldDisciplina;
+    private JTextField textFieldFecha;
+    private JTextField textFieldDias;
     private JPanel topPanel;
     private JPanel centerPanel;
     private JPanel lowerPanel;
@@ -21,15 +23,8 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 900));
 
-        // Crear grupos de checkboxes
-        CheckboxGroup grupo1 = new CheckboxGroup();
         CheckboxGroup grupo2 = new CheckboxGroup();
-        CheckboxGroup grupo3 = new CheckboxGroup();
 
-        checkbox1 = new Checkbox("Formato1", grupo1, false);
-        checkbox2 = new Checkbox("formato2", grupo1, false);
-        checkbox3 = new Checkbox("Formato3", grupo1, false);
-        checkbox3.setVisible(false);
 
         checkbox4 = new Checkbox("Eliminación simple", grupo2, false);
         checkbox5 = new Checkbox("Eliminación doble", grupo2, false);
@@ -38,7 +33,7 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
 
 
         // Panel superior con nombre y disciplina
-        topPanel = new JPanel(new GridLayout(3, 1, 10, 10));
+        topPanel = new JPanel(new GridLayout(5, 1, 10, 10));
         add(topPanel, BorderLayout.NORTH);
 
         botonLista = new JButton("Crear Torneo");
@@ -46,34 +41,52 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
         topPanel.add(botonLista);
 
         JPanel nombrePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel nombreLabel = new JLabel("Nombre:");
+        JLabel nombreLabel = new JLabel("             Nombre:");
         textFieldNombre = new JTextField(15);
         nombrePanel.add(nombreLabel);
         nombrePanel.add(textFieldNombre);
         topPanel.add(nombrePanel);
 
         JPanel disciplinaPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel labelDisciplina = new JLabel("Disciplina:");
+        JLabel labelDisciplina = new JLabel("       Disciplina:");
         textFieldDisciplina = new JTextField(15);
         disciplinaPanel.add(labelDisciplina);
         disciplinaPanel.add(textFieldDisciplina);
         topPanel.add(disciplinaPanel);
 
-        // Panel central con checkboxes alineados en filas y columnas
-        centerPanel = new JPanel(new GridLayout(2, 3, 20, 20));
+        JPanel fechaPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel fechaLabel = new JLabel(" Fecha de inicio:");
+        textFieldFecha = new JTextField(15);
+        fechaPanel.add(fechaLabel);
+        fechaPanel.add(textFieldFecha);
+        topPanel.add(fechaPanel);
+
+        JPanel diaPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel diaLabel = new JLabel("Dias entre partido:");
+        textFieldDias = new JTextField(15);
+        diaPanel.add(diaLabel);
+        diaPanel.add(textFieldDias);
+        topPanel.add(diaPanel);
+
+
+
+
+
+
+
+        centerPanel = new JPanel(new GridLayout(1, 3, 20, 20));
         centerPanel.setBorder(BorderFactory.createTitledBorder("Opciones de Formato"));
         add(centerPanel, BorderLayout.CENTER);
         centerPanel.setBackground(Color.LIGHT_GRAY);
 
-        centerPanel.add(checkbox1);
-        centerPanel.add(checkbox2);
-        centerPanel.add(checkbox3);
+
+
         centerPanel.add(checkbox4);
         centerPanel.add(checkbox5);
         centerPanel.add(checkbox6);
 
 
-        // Panel inferior
+
         lowerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         lowerPanel.setBackground(Color.BLACK);
         add(lowerPanel, BorderLayout.SOUTH);

@@ -8,15 +8,44 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PanelGestionarTorneos extends JPanel implements ActionListener {
-    private JButton botonCrear, botonListar, botonEliminar, botonEditar, botonSalir;
+    private JButton botonCrear, botonListar, botonEliminar, botonEditar, botonResult;
     private JList<String> torneoList;
     private String seleccionado;
     private JPanel panelBotones;
+    private JButton botonEquipo;
+    private JButton botonJugador;
+    private JButton botonVolver;
+    private JButton guardarEquipo;
+    private JButton volverEquipo;
+    private JButton guardarJugador;
+    private JButton volverJugador;
+
+
+    private JTextField campo1;
+    private JTextField campo2;
+    private JTextField campo3;
+    private JTextField campo4;
+
+    private JTextField campo1Jugador;
+    private JTextField campo2Jugador;
+    private JTextField campo3Jugador;
+    private JTextField campo4Jugador;
+    private JTextField campo5Jugador;
+
 
     public PanelGestionarTorneos(DefaultListModel<String> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 800));
         setBackground(Color.LIGHT_GRAY);
+
+
+         botonEquipo = new JButton("Inscribir equipo");
+         botonEquipo.addActionListener(this);
+         botonJugador = new JButton("Inscribir jugador");
+         botonJugador.addActionListener(this);
+         botonVolver = new JButton("Volver");
+         botonVolver.addActionListener(this);
+
 
 
         JPanel panelLista = new JPanel(new BorderLayout());
@@ -56,10 +85,10 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
         botonListar = new JButton("Inscribir participantes");
         botonEliminar = new JButton("Generar partidos");
         botonEditar = new JButton("Eliminar participantes");
-        botonSalir = new JButton("Registrar resultados");
+        botonResult = new JButton("Registrar resultados");
 
         Dimension botonSize = new Dimension(200, 40);
-        JButton[] botones = { botonCrear, botonListar, botonEliminar, botonEditar, botonSalir };
+        JButton[] botones = { botonCrear, botonListar, botonEliminar, botonEditar, botonResult};
         for (JButton boton : botones) {
             boton.setAlignmentX(Component.CENTER_ALIGNMENT);
             boton.setMaximumSize(botonSize);
@@ -80,7 +109,159 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
 
 
 
+                }
+
+            if(e.getSource()==botonListar){
+
+                panelBotones.removeAll();
+
+                botonEquipo.setAlignmentX(Component.CENTER_ALIGNMENT);
+                botonJugador.setAlignmentX(Component.CENTER_ALIGNMENT);
+                botonVolver.setAlignmentX(Component.CENTER_ALIGNMENT);
+                panelBotones.add(Box.createVerticalStrut(20));
+                panelBotones.add(botonEquipo);
+                panelBotones.add(Box.createVerticalStrut(15));
+                panelBotones.add(botonJugador);
+                panelBotones.add(Box.createVerticalStrut(15));
+                panelBotones.add(botonVolver);
+
+
+                revalidate();
+                repaint();
             }
+
+            if(e.getSource()==botonVolver){
+                panelBotones.removeAll();
+                Dimension botonSize = new Dimension(200, 40);
+                JButton[] botones = {botonCrear, botonListar, botonEliminar, botonEditar, botonResult};
+                for (JButton boton : botones) {
+                    boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    boton.setMaximumSize(botonSize);
+                    panelBotones.add(boton);
+                    panelBotones.add(Box.createVerticalStrut(15));
+
+                    revalidate();
+                    repaint();
+                }
+
+
+
+            }
+
+            if(e.getSource()==botonEquipo){
+
+                panelBotones.removeAll();
+
+
+                campo1 = new JTextField(15);
+                campo2 = new JTextField(15);
+                campo3 = new JTextField(15);
+                campo4 = new JTextField(15);
+
+                guardarEquipo = new JButton("Guardar equipo");
+                guardarEquipo.addActionListener(this);
+                volverEquipo = new JButton("Volver");
+                volverEquipo.addActionListener(this);
+
+                campo1.setMaximumSize(new Dimension(200, 30));
+                campo2.setMaximumSize(new Dimension(200, 30));
+                campo3.setMaximumSize(new Dimension(200, 30));
+                campo4.setMaximumSize(new Dimension(200, 30));
+
+                panelBotones.add(Box.createVerticalStrut(20));
+                panelBotones.add(new JLabel("Definir nombre"));
+                panelBotones.add(campo1);
+                panelBotones.add(Box.createVerticalStrut(10));
+                panelBotones.add(new JLabel("Definir email"));
+                panelBotones.add(campo2);
+                panelBotones.add(Box.createVerticalStrut(10));
+                panelBotones.add(new JLabel("definir teléfono"));
+                panelBotones.add(campo3);
+                panelBotones.add(Box.createVerticalStrut(10));
+                panelBotones.add(Box.createVerticalStrut(20));
+                panelBotones.add(guardarEquipo);
+                panelBotones.add(Box.createVerticalStrut(10));
+                panelBotones.add(volverEquipo);
+
+                revalidate();
+                repaint();
+            }
+            if(e.getSource()==volverEquipo){
+                panelBotones.removeAll();
+
+                panelBotones.add(botonEquipo);
+                panelBotones.add(Box.createVerticalStrut(15));
+                panelBotones.add(botonJugador);
+                panelBotones.add(Box.createVerticalStrut(15));
+                panelBotones.add(botonVolver);
+
+
+                revalidate();
+                repaint();
+
+            }
+
+            if(e.getSource()==botonJugador){
+
+                panelBotones.removeAll();
+
+                guardarJugador = new JButton("Guardar jugador");
+                guardarJugador.addActionListener(this);
+                volverJugador = new JButton("Volver");
+                volverJugador.addActionListener(this);
+
+
+                campo1Jugador = new JTextField(15);
+                campo2Jugador = new JTextField(15);
+                campo3Jugador = new JTextField(15);
+                campo4Jugador = new JTextField(15);
+                campo5Jugador = new JTextField(15);
+
+
+
+                campo1Jugador.setMaximumSize(new Dimension(200, 30));
+                campo2Jugador.setMaximumSize(new Dimension(200, 30));
+                campo3Jugador.setMaximumSize(new Dimension(200, 30));
+                campo4Jugador.setMaximumSize(new Dimension(200, 30));
+                campo5Jugador.setMaximumSize(new Dimension(200, 30));
+
+                panelBotones.add(Box.createVerticalStrut(20));
+                panelBotones.add(new JLabel("Definir nombre"));
+                panelBotones.add(campo1Jugador);
+                panelBotones.add(Box.createVerticalStrut(10));
+                panelBotones.add(new JLabel("Definir email"));
+                panelBotones.add(campo2Jugador);
+                panelBotones.add(Box.createVerticalStrut(10));
+                panelBotones.add(new JLabel("definir teléfono"));
+                panelBotones.add(campo3Jugador);
+                panelBotones.add(Box.createVerticalStrut(10));
+                panelBotones.add(new JLabel("definir dirección"));
+                panelBotones.add(campo4Jugador);
+                panelBotones.add(Box.createVerticalStrut(10));
+                panelBotones.add(guardarJugador);
+                panelBotones.add(Box.createVerticalStrut(10));
+                panelBotones.add(volverJugador);
+
+
+                revalidate();
+                repaint();
+
+            }
+            if(e.getSource()==volverJugador){
+                panelBotones.removeAll();
+
+                panelBotones.add(botonEquipo);
+                panelBotones.add(Box.createVerticalStrut(15));
+                panelBotones.add(botonJugador);
+                panelBotones.add(Box.createVerticalStrut(15));
+                panelBotones.add(botonVolver);
+
+
+                revalidate();
+                repaint();
+
+            }
+
         }
     }
 }

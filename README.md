@@ -21,8 +21,10 @@ actual del torneo, los próximos encuentros y las estadísticas generales.</p>
 <img src="use-case.png">
 
 ## Captura de pantalla de la interfaz
+<img src="screenshot.png">
 
 ## Diagrama de clases UML
+<img src="uml.png">
 
 ## Patrones de diseño usados
 ### Builder

@@ -9,7 +9,7 @@ public class Equipo extends Participante {
     private ArrayList<Jugador> jugadores;
 
     /**
-     * Metodo constructor
+     * Metodo constructor del equipo
      *
      * @param nombre
      * @param email

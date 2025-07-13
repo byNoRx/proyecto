@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.time.LocalDate;
 
-
+/**
+ * Formato de eliminatoria directa para un torneo
+ */
 public class FormatoEliminatoriaDirecta implements FormatoTorneo {
     @Override
     public void ordenarParticipantes(ArrayList<Participante> participantes) {

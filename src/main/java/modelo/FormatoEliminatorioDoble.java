@@ -2,6 +2,9 @@ package modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Formato de eliminatoria doble para un torneo
+ */
 public class FormatoEliminatorioDoble implements FormatoTorneo {
     @Override
     public void ordenarParticipantes(ArrayList<Participante> participantes) {

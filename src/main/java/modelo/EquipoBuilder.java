@@ -1,9 +1,14 @@
 package modelo;
 
+/**
+ * Clase para construir un equipo paso a paso
+ */
 public class EquipoBuilder {
     private String nombre;
     private String email;
     private String telefono;
+
+    // Setters y Getters
 
     public void setNombre(String nombre) {
         this.nombre = nombre;

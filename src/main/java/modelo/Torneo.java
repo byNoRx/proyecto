@@ -3,6 +3,9 @@ package modelo;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
+/**
+ * Clase que representa un torneo
+ */
 public class Torneo {
     private String nombre;
     private String disciplina;
@@ -12,6 +15,15 @@ public class Torneo {
     private LocalDate fechaDeInicio;
     private int diasEntreRondas;
 
+    /**
+     * Metodo constructor del torneo
+     *
+     * @param nombre
+     * @param disciplina
+     * @param formato Indica el formato que tiene el torneo que se usa para generar los partidos
+     * @param fechaDeInicio Indica la fecha en que inicia el torneo
+     * @param diasEntreRondas Establece una distancia entre las rondas del torneo a partir de la fecha inicial
+     */
     public Torneo(String nombre, String disciplina, FormatoTorneo formato, LocalDate fechaDeInicio, int diasEntreRondas) {
         this.nombre = nombre;
         this.disciplina = disciplina;
@@ -82,7 +94,7 @@ public class Torneo {
         return partidos;
     }
 
-    // Getters y setters
+    // Metodos getters y setters
 
     public String getNombre() {
         return nombre;

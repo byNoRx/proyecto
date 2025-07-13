@@ -96,6 +96,31 @@ public class Partido {
 
     // Metodos getters y setters
 
+
+    public void setPartidosConectadosPerdedor(int partidosConectadosPerdedor) {
+        this.partidosConectadosPerdedor = partidosConectadosPerdedor;
+    }
+
+    public int getPartidosConectadosPerdedor() {
+        return partidosConectadosPerdedor;
+    }
+
+    public void setPartidoSiguientePerdedor(Partido partidoSiguientePerdedor) {
+        this.partidoSiguientePerdedor = partidoSiguientePerdedor;
+    }
+
+    public Partido getPartidoSiguientePerdedor() {
+        return partidoSiguientePerdedor;
+    }
+
+    public void setPerdedor(Participante perdedor) {
+        this.perdedor = perdedor;
+    }
+
+    public Participante getPerdedor() {
+        return perdedor;
+    }
+
     public void setTerminado(boolean terminado) {
         this.terminado = terminado;
     }

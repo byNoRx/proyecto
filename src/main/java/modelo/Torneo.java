@@ -99,7 +99,7 @@ public class Torneo {
      *
      * @return Devuelve el total de partidos que han terminado
      */
-    public int totalPartidosJugados() {
+    public int getTotalPartidosJugados() {
         int totalPartidosJugados = 0;
         for (Partido partido : partidos) {
             if (partido.getTerminado()) {

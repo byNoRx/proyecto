@@ -40,7 +40,12 @@ public class Partido {
      * Metodo que calcula el ganador del partido y lo asigna al siguiente partido
      */
     public void terminarPartido() {
+        // Si ya está terminado se acaba el metodo
+        if (terminado) {
+            return;
+        }
         terminado = true;
+
         // Establecer ganador
         if (puntajeA > puntajeB) {
             ganador = participanteA;

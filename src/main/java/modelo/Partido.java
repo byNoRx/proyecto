@@ -15,6 +15,7 @@ public class Partido {
     private Participante ganador;
     private Partido partidoSiguiente;
     private int partidosConectados;
+    private boolean terminado;
 
     /**
      * Metodo constructor del partido
@@ -23,27 +24,38 @@ public class Partido {
      * @param ronda Ronda en que se encuentra el partido
      */
     public Partido(LocalDate fecha, int ronda) {
-        this.ronda = ronda;
         this.fecha = fecha;
+        this.ronda = ronda;
         this.participanteA = null;
         this.participanteB = null;
         puntajeA = 0;
         puntajeB = 0;
         ganador = null;
+        partidoSiguiente = null;
+        partidosConectados = 0;
+        terminado = false;
     }
 
     /**
      * Metodo que calcula el ganador del partido y lo asigna al siguiente partido
      */
     public void terminarPartido() {
+        terminado = true;
+        // Establecer ganador
         if (puntajeA > puntajeB) {
             ganador = participanteA;
         } else if (puntajeB > puntajeA) {
             ganador = participanteB;
+        } else { // Si no hay ganador, se establece como null y se acaba el metodo
+            ganador = null;
+            return;
         }
+
+        // Si no hay siguiente partido se acaba el metodo
         if (partidoSiguiente == null) {
             return;
         }
+
         // Si el partido siguiente no tiene participante A, el ganador de este partido se pone como participante A
         if (partidoSiguiente.getParticipanteA() == null) {
             partidoSiguiente.setParticipanteA(ganador);

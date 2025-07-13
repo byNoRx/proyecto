@@ -25,12 +25,7 @@ public class PanelEliminarTorneos extends JPanel {
             if (!e.getValueIsAdjusting()) {
                 String seleccionado = torneoList.getSelectedValue();
                 if (seleccionado != null) {
-                    int respuesta = JOptionPane.showConfirmDialog(
-                            PanelEliminarTorneos.this,
-                            "¿Deseas eliminar el torneo \"" + seleccionado + "\"?",
-                            "Confirmar eliminación",
-                            JOptionPane.YES_NO_OPTION
-                    );
+                    int respuesta = JOptionPane.showConfirmDialog(PanelEliminarTorneos.this, "¿Deseas eliminar el torneo \"" + seleccionado + "\"?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
                     if (respuesta == JOptionPane.YES_OPTION) {
                         torneoModel.removeElement(seleccionado);

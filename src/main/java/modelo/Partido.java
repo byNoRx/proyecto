@@ -13,8 +13,11 @@ public class Partido {
     private int puntajeA;
     private int puntajeB;
     private Participante ganador;
+    private Participante perdedor;
     private Partido partidoSiguiente;
+    private Partido partidoSiguientePerdedor;
     private int partidosConectados;
+    private int partidosConectadosPerdedor;
     private boolean terminado;
 
     /**
@@ -31,8 +34,11 @@ public class Partido {
         puntajeA = 0;
         puntajeB = 0;
         ganador = null;
+        perdedor = null;
         partidoSiguiente = null;
+        partidoSiguientePerdedor = null;
         partidosConectados = 0;
+        partidosConectadosPerdedor = 0;
         terminado = false;
     }
 
@@ -49,10 +55,13 @@ public class Partido {
         // Establecer ganador
         if (puntajeA > puntajeB) {
             ganador = participanteA;
+            perdedor = participanteB;
         } else if (puntajeB > puntajeA) {
             ganador = participanteB;
+            perdedor = participanteA;
         } else { // Si no hay ganador, se establece como null y se acaba el metodo
             ganador = null;
+            perdedor = null;
             return;
         }
 
@@ -68,6 +77,20 @@ public class Partido {
         // Si el partido siguiente Sí tiene participante A, el ganador de este partido se pone como participante B
         else {
             partidoSiguiente.setParticipanteB(ganador);
+        }
+
+        // Si no hay siguiente partido para el perdedir se acaba el metodo
+        if (partidoSiguientePerdedor == null) {
+            return;
+        }
+
+        // Si el partido siguiente no tiene participante A, el perdedor de este partido se pone como participante A
+        if (partidoSiguientePerdedor.getParticipanteA() == null) {
+            partidoSiguientePerdedor.setParticipanteA(perdedor);
+        }
+        // Si el partido siguiente Sí tiene participante A, el perdedor de este partido se pone como participante B
+        else {
+            partidoSiguientePerdedor.setParticipanteB(perdedor);
         }
     }
 

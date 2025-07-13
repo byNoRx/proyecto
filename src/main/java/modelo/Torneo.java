@@ -94,6 +94,21 @@ public class Torneo {
         return partidos;
     }
 
+    /**
+     * Metodo para obtener la cantidad de partidos que han sido jugados en el torneo
+     *
+     * @return Devuelve el total de partidos que han terminado
+     */
+    public int totalPartidosJugados() {
+        int totalPartidosJugados = 0;
+        for (Partido partido : partidos) {
+            if (partido.getTerminado()) {
+                totalPartidosJugados++;
+            }
+        }
+        return totalPartidosJugados;
+    }
+
     // Metodos getters y setters
 
     public String getNombre() {

@@ -20,7 +20,6 @@ public class Equipo extends Participante {
         jugadores = new ArrayList<>();
     }
 
-
     /**
      * Añade un jugador al equipo
      *

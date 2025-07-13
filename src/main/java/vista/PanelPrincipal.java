@@ -36,7 +36,6 @@ public class PanelPrincipal extends JPanel implements ActionListener {
         BigPanel3.setPreferredSize(new Dimension(700, 700));
 
         BigPanel5=new JPanel();
-
         panel3 = new PanelCrearTorneo(modeloCompartido);
 
 

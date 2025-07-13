@@ -68,6 +68,14 @@ public class Partido {
 
     // Metodos getters y setters
 
+    public void setTerminado(boolean terminado) {
+        this.terminado = terminado;
+    }
+
+    public boolean getTerminado() {
+        return terminado;
+    }
+
     public void setParticipanteA(Participante participanteA) {
         this.participanteA = participanteA;
     }

@@ -3,6 +3,9 @@ package modelo;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
+/**
+ * Formato de liga simple para un torneo
+ */
 public class FormatoLigaSimple implements FormatoTorneo {
     @Override
     public void ordenarParticipantes(ArrayList<Participante> participantes) {

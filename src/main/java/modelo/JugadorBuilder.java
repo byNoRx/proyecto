@@ -1,10 +1,15 @@
 package modelo;
 
+/**
+ * Clase para construir paso a paso un jugador
+ */
 public class JugadorBuilder {
     private String nombre;
     private String email;
     private String telefono;
     private String direccion;
+
+    // Metodos getters y setters
 
     public void setNombre(String nombre) {
         this.nombre = nombre;

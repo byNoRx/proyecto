@@ -2,9 +2,19 @@ package modelo;
 
 import java.util.ArrayList;
 
+/**
+ * Clase que representa un equipo puede contener jugadores y es un participante del torneo
+ */
 public class Equipo extends Participante {
     private ArrayList<Jugador> jugadores;
-    
+
+    /**
+     * Metodo constructor del equipo
+     *
+     * @param nombre
+     * @param email
+     * @param telefono
+     */
     public Equipo(String nombre, String email, String telefono) {
         super(nombre, email, telefono); 
         jugadores = new ArrayList<>();

@@ -109,6 +109,21 @@ public class Torneo {
         return totalPartidosJugados;
     }
 
+    /**
+     * Metodo para obtener el total de puntos que han habido en el torneo,
+     * sumando todos los puntos que se han anotado en cada partido
+     *
+     * @return Devuelve el total de puntos
+     */
+    public int getTotalPuntos() {
+        int totalPuntos = 0;
+        for (Partido partido : partidos) {
+            totalPuntos += partido.getPuntajeA();
+            totalPuntos += partido.getPuntajeB();
+        }
+        return totalPuntos;
+    }
+
     // Metodos getters y setters
 
     public String getNombre() {

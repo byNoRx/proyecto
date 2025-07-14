@@ -29,6 +29,7 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
     private JTextField campo1Jugador, campo2Jugador, campo3Jugador, campo4Jugador;
     private JTextField campoNumeroPartido, campoPuntajeA, campoPuntajeB;
     private JTextField campoNombreJugadorEquipo, campoEmailJugadorEquipo, campoTelefonoJugadorEquipo, campoDireccionJugadorEquipo;
+    private JCheckBox checkTerminarPartido;
 
     public PanelGestionarTorneos(DefaultListModel<Torneo> torneoModel) {
         setLayout(new BorderLayout());
@@ -79,7 +80,7 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
             panelBotones.add(Box.createVerticalStrut(15));
         }
 
-        // Botones
+        // Botones adicionales
         botonJugador = new JButton("Inscribir jugador");
         botonJugador.addActionListener(this);
         botonVolver = new JButton("Volver");
@@ -156,7 +157,7 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
                 Partido partido = torneoSeleccionado.getPartidos().get(numero);
                 partido.setPuntajeA(puntosA);
                 partido.setPuntajeB(puntosB);
-                partido.setTerminado(true);
+                partido.setTerminado(checkTerminarPartido.isSelected());
 
                 JOptionPane.showMessageDialog(this, "Resultado guardado para partido " + (numero + 1));
                 restaurarBotonesIniciales();
@@ -191,32 +192,6 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
         refrescarPanel();
     }
 
-    private void mostrarFormularioEquipo() {
-        panelBotones.removeAll();
-
-        campo1 = new JTextField(15);
-        campo2 = new JTextField(15);
-        campo3 = new JTextField(15);
-
-        guardarEquipo = new JButton("Guardar equipo");
-        guardarEquipo.addActionListener(this);
-        volverEquipo = new JButton("Volver");
-        volverEquipo.addActionListener(this);
-
-        panelBotones.add(new JLabel("Nombre"));
-        panelBotones.add(campo1);
-        panelBotones.add(new JLabel("Email"));
-        panelBotones.add(campo2);
-        panelBotones.add(new JLabel("Teléfono"));
-        panelBotones.add(campo3);
-        panelBotones.add(Box.createVerticalStrut(10));
-        panelBotones.add(guardarEquipo);
-        panelBotones.add(Box.createVerticalStrut(5));
-        panelBotones.add(volverEquipo);
-
-        refrescarPanel();
-    }
-
     private void mostrarFormularioJugador() {
         panelBotones.removeAll();
 
@@ -246,37 +221,13 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
         refrescarPanel();
     }
 
-    private void mostrarFormularioJugadorParaEquipo() {
-        panelBotones.removeAll();
-
-        campoNombreJugadorEquipo = new JTextField(15);
-        campoEmailJugadorEquipo = new JTextField(15);
-        campoTelefonoJugadorEquipo = new JTextField(15);
-        campoDireccionJugadorEquipo = new JTextField(15);
-
-        volverJugadorEquipo = new JButton("Volver");
-        volverJugadorEquipo.addActionListener(this);
-
-        panelBotones.add(new JLabel("Nombre del jugador"));
-        panelBotones.add(campoNombreJugadorEquipo);
-        panelBotones.add(new JLabel("Email"));
-        panelBotones.add(campoEmailJugadorEquipo);
-        panelBotones.add(new JLabel("Teléfono"));
-        panelBotones.add(campoTelefonoJugadorEquipo);
-        panelBotones.add(new JLabel("Dirección"));
-        panelBotones.add(campoDireccionJugadorEquipo);
-        panelBotones.add(Box.createVerticalStrut(5));
-        panelBotones.add(volverJugadorEquipo);
-
-        refrescarPanel();
-    }
-
     private void mostrarFormularioResultado() {
         panelBotones.removeAll();
 
         campoNumeroPartido = new JTextField(5);
         campoPuntajeA = new JTextField(5);
         campoPuntajeB = new JTextField(5);
+        checkTerminarPartido = new JCheckBox("Marcar partido como terminado");
 
         guardarResultado = new JButton("Guardar resultado");
         guardarResultado.addActionListener(this);
@@ -289,6 +240,8 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
         panelBotones.add(campoPuntajeA);
         panelBotones.add(new JLabel("Puntaje equipo B:"));
         panelBotones.add(campoPuntajeB);
+        panelBotones.add(Box.createVerticalStrut(10));
+        panelBotones.add(checkTerminarPartido);
         panelBotones.add(Box.createVerticalStrut(10));
         panelBotones.add(guardarResultado);
         panelBotones.add(Box.createVerticalStrut(5));

@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Clase que representa un panel que se usa para gestionar los torneos,
+ * por ejemplo para añadir participantes y generar los partidos.
+ */
 public class PanelGestionarTorneos extends JPanel implements ActionListener {
     private JButton botonCrear, botonListar, botonEliminar, botonEditar, botonResult;
     private JList<String> torneoList;
@@ -20,7 +24,6 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
     private JButton guardarJugador;
     private JButton volverJugador;
 
-
     private JTextField campo1;
     private JTextField campo2;
     private JTextField campo3;
@@ -32,21 +35,22 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
     private JTextField campo4Jugador;
     private JTextField campo5Jugador;
 
-
+    /**
+     * Metodo constructor
+     *
+     * @param torneoModel
+     */
     public PanelGestionarTorneos(DefaultListModel<String> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 800));
         setBackground(Color.LIGHT_GRAY);
 
-
-         botonEquipo = new JButton("Inscribir equipo");
-         botonEquipo.addActionListener(this);
-         botonJugador = new JButton("Inscribir jugador");
-         botonJugador.addActionListener(this);
-         botonVolver = new JButton("Volver");
-         botonVolver.addActionListener(this);
-
-
+        botonEquipo = new JButton("Inscribir equipo");
+        botonEquipo.addActionListener(this);
+        botonJugador = new JButton("Inscribir jugador");
+        botonJugador.addActionListener(this);
+        botonVolver = new JButton("Volver");
+        botonVolver.addActionListener(this);
 
         JPanel panelLista = new JPanel(new BorderLayout());
         JLabel titleLabel = new JLabel("Torneos");
@@ -58,7 +62,6 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
         torneoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(torneoList);
         panelLista.add(scrollPane, BorderLayout.CENTER);
-
 
         torneoList.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -74,7 +77,6 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
                 }
             }
         });
-
 
         panelBotones = new JPanel();
         panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
@@ -97,22 +99,16 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
             panelBotones.add(Box.createVerticalStrut(15));
         }
 
-
         add(panelLista, BorderLayout.CENTER);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (seleccionado != null) {
             if (e.getSource() == botonCrear) {
+            }
 
-
-
-                }
-
-            if(e.getSource()==botonListar){
-
+            if (e.getSource() == botonListar) {
                 panelBotones.removeAll();
 
                 botonEquipo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -125,12 +121,11 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
                 panelBotones.add(Box.createVerticalStrut(15));
                 panelBotones.add(botonVolver);
 
-
                 revalidate();
                 repaint();
             }
 
-            if(e.getSource()==botonVolver){
+            if (e.getSource() == botonVolver) {
                 panelBotones.removeAll();
                 Dimension botonSize = new Dimension(200, 40);
                 JButton[] botones = {botonCrear, botonListar, botonEliminar, botonEditar, botonResult};
@@ -143,15 +138,10 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
                     revalidate();
                     repaint();
                 }
-
-
-
             }
 
-            if(e.getSource()==botonEquipo){
-
+            if(e.getSource() == botonEquipo) {
                 panelBotones.removeAll();
-
 
                 campo1 = new JTextField(15);
                 campo2 = new JTextField(15);
@@ -186,7 +176,8 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
                 revalidate();
                 repaint();
             }
-            if(e.getSource()==volverEquipo){
+
+            if (e.getSource() == volverEquipo) {
                 panelBotones.removeAll();
 
                 panelBotones.add(botonEquipo);
@@ -195,14 +186,11 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
                 panelBotones.add(Box.createVerticalStrut(15));
                 panelBotones.add(botonVolver);
 
-
                 revalidate();
                 repaint();
-
             }
 
-            if(e.getSource()==botonJugador){
-
+            if (e.getSource() == botonJugador) {
                 panelBotones.removeAll();
 
                 guardarJugador = new JButton("Guardar jugador");
@@ -210,14 +198,11 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
                 volverJugador = new JButton("Volver");
                 volverJugador.addActionListener(this);
 
-
                 campo1Jugador = new JTextField(15);
                 campo2Jugador = new JTextField(15);
                 campo3Jugador = new JTextField(15);
                 campo4Jugador = new JTextField(15);
                 campo5Jugador = new JTextField(15);
-
-
 
                 campo1Jugador.setMaximumSize(new Dimension(200, 30));
                 campo2Jugador.setMaximumSize(new Dimension(200, 30));
@@ -242,12 +227,11 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
                 panelBotones.add(Box.createVerticalStrut(10));
                 panelBotones.add(volverJugador);
 
-
                 revalidate();
                 repaint();
-
             }
-            if(e.getSource()==volverJugador){
+
+            if (e.getSource() == volverJugador) {
                 panelBotones.removeAll();
 
                 panelBotones.add(botonEquipo);
@@ -256,12 +240,9 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
                 panelBotones.add(Box.createVerticalStrut(15));
                 panelBotones.add(botonVolver);
 
-
                 revalidate();
                 repaint();
-
             }
-
         }
     }
 }

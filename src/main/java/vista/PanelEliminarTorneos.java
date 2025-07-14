@@ -5,9 +5,17 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
+/**
+ * Clase que representa un panel que se usa para eliminar los torneos que han sido creados anteriormente
+ */
 public class PanelEliminarTorneos extends JPanel {
     private JList<String> torneoList;
 
+    /**
+     * Metodo cosntructor
+     *
+     * @param torneoModel
+     */
     public PanelEliminarTorneos(DefaultListModel<String> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 600));

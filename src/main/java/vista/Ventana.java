@@ -3,6 +3,9 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Clase que representa la ventana principal del gestor de torneos
+ */
 public class Ventana extends JFrame {
     public Ventana() {
 

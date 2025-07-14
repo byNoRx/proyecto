@@ -3,8 +3,11 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Clase que simplemente muesta una lista de los torneos que han sido creados
+ */
 public class PanelLista extends JPanel {
-    private JList<String> torneoList;
+    private JList<String> torneoList; // lista de torneos
 
     public PanelLista(DefaultListModel<String> torneoModel) {
         setLayout(new BorderLayout());

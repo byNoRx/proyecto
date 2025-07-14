@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Clase que representa un panel que se usa para crear torneos
+ */
 public class PanelCrearTorneo extends JPanel implements ActionListener {
     private JButton botonLista;
 
@@ -18,6 +21,12 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
     private JPanel centerPanel;
     private JPanel lowerPanel;
     private DefaultListModel<String> torneoModel;
+
+    /**
+     * Metodo constructor
+     *
+     * @param torneoModel
+     */
     public PanelCrearTorneo(DefaultListModel<String> torneoModel) {
         this.torneoModel = torneoModel;
         setLayout(new BorderLayout());
@@ -26,11 +35,9 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
         CheckboxGroup grupo2 = new CheckboxGroup();
 
 
-        checkbox4 = new Checkbox("Eliminación simple", grupo2, false);
-        checkbox5 = new Checkbox("Eliminación doble", grupo2, false);
+        checkbox4 = new Checkbox("Eliminatoria Directa", grupo2, false);
+        //checkbox5 = new Checkbox("Eliminación doble", grupo2, false);
         checkbox6 = new Checkbox("Liga", grupo2, false);
-
-
 
         // Panel superior con nombre y disciplina
         topPanel = new JPanel(new GridLayout(5, 1, 10, 10));
@@ -68,24 +75,14 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
         diaPanel.add(textFieldDias);
         topPanel.add(diaPanel);
 
-
-
-
-
-
-
         centerPanel = new JPanel(new GridLayout(1, 3, 20, 20));
         centerPanel.setBorder(BorderFactory.createTitledBorder("Opciones de Formato"));
         add(centerPanel, BorderLayout.CENTER);
         centerPanel.setBackground(Color.LIGHT_GRAY);
 
-
-
         centerPanel.add(checkbox4);
-        centerPanel.add(checkbox5);
+        //centerPanel.add(checkbox5);
         centerPanel.add(checkbox6);
-
-
 
         lowerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         lowerPanel.setBackground(Color.BLACK);

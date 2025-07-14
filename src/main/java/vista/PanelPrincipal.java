@@ -5,15 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Clase que representa un panel con una lista de botones interactuables,
+ * para principalmentecrear, eliminar y gestionar torneos
+ */
 public class PanelPrincipal extends JPanel implements ActionListener {
 
     private JPanel BigPanel, panel1, panel2, BigPanel2, panel3, BigPanel3, panel4, BigPanel4, panel5, BigPanel5,panel6, BigPanel6;
     private JButton boton1, boton2, boton3, boton4, boton5, boton6, boton7, boton8, boton9, boton10;
 
+    /**
+     * Metodo constructor
+     */
     public PanelPrincipal() {
-
-
         DefaultListModel<String> modeloCompartido = new DefaultListModel<>();
         modeloCompartido.addElement("Torneo A");
         modeloCompartido.addElement("Torneo B");

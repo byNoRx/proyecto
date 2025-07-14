@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Clase que muestra un panel que permite ver los torneos que han sido creados
+ */
 public class PanelVerTorneos extends JPanel implements ActionListener {
     private String seleccionado;
     private JButton botonVerInfo;
@@ -14,6 +17,11 @@ public class PanelVerTorneos extends JPanel implements ActionListener {
     private JList<String> torneoList;
     private JPanel panelBotones2;
 
+    /**
+     * Metodo constructor
+     *
+     * @param torneoModel
+     */
     public PanelVerTorneos(DefaultListModel<String> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 600));

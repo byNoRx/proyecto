@@ -28,14 +28,17 @@ actual del torneo, los próximos encuentros y las estadísticas generales.</p>
 
 ## Patrones de diseño usados
 ### Builder
-- Se ha usado para que construir el torneo paso a paso dentro de la interfaz de usuario sea más cómodo. Lista de clases utilizadas: TorneoBuilder, EquipoBuilder, JugadorBuilder
+- Usamos el patrón Builder para facilitar la creación de objetos grandes como el Torneo, el Equipo y el Jugador. Esto ayuda mucho para cuando vamos a usar la interfaz gráfica, porque podemos construir esos objetos paso a paso según lo que el usuario vaya ingresando, sin tener que pasar mil parámetros de una vez. También hace el código más ordenado y evita errores con constructores muy largos.
+- Clases que usan este patrón: TorneoBuilder, EquipoBuilder y JugadorBuilder.
 ### Strategy
-- Se utilizó para encapsular los diferentes formatos de torneo, como eliminatoria directa, eliminatoria doble y liga simple. Esto permite agregar nuevos formatos sin modificar la clase Torneo. Clases involucradas: FormatoEliminatoriaDirecta, FormatoEliminatoriaDoble, FormatoLigaSimple, Torneo
+- Se utilizó para separar la lógica de los formatos de torneo, como eliminatoria directa y liga simple. Así, si queremos agregar otro formato, solo hacemos una clase nueva que implemente la interfaz FormatoTorneo y no modificamos la clase principal del torneo. Esto hace que el código sea más fácil de mantener y modificar.
+- Clases que usan este patrón: FormatoEliminatoriaDirecta y FormatoLigaSimple
 
 ## Decisiones importantes
-- Se implementaron builders para las entidades Torneo, Jugador y Equipo pensando en la futura integración con formularios interactivos.
-- Se decidió usar el patrón Strategy para separar la lógica de generación de partidos según el formato, facilitando la escalabilidad del sistema.
-- Se dividió el proyecto en modelo y vista para mantener un diseño limpio y facilitar pruebas unitarias.
+- Elegimos usar builders porque pensamos que así sería más fácil crear los objetos desde la interfaz gráfica, así el usuario solo va llenando datos y se van construyendo los objetos poco a poco.
+- Usamos Strategy para que la lógica de cada formato de torneo esté separada. Así el código queda más limpio y fácil de extender.
+- Separamos el modelo y la vista para que el código esté organizado.
+- Agregamos excepciones personalizadas para controlar mejor los errores.
 
 ## Problemas identificados y autocrítica
 - Uno de los principales problemas fue la generación de los brackets para la eliminatoria directa, ya que implica conducir a los ganadores a partidos distintos. Inicialmente, no se planificó esta lógica con claridad, lo que llevó a reestructurar varias veces las clases FormatoEliminatoriaDirecta y la interfaz FormatoTorneo y a tardar más del tiempo esperado en completar dichas funciones.

@@ -9,7 +9,7 @@ import java.awt.*;
 public class Ventana extends JFrame {
     public Ventana() {
 
-        setTitle("Interfaz de Torneos");
+        setTitle("Sistema de Gestión de Torneos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 900);
         setLayout(new BorderLayout());

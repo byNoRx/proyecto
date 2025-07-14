@@ -1,6 +1,7 @@
 package vista;
 
 import modelo.FormatoEliminatoriaDirecta;
+import modelo.FormatoLigaSimple;
 import modelo.Torneo;
 import modelo.TorneoBuilder;
 
@@ -122,12 +123,13 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
             torneoBuilder.setFechaDeInicio(fecha);
             torneoBuilder.setDiasEntreRondas(dias);
 
-            // Formato (por ahora, solo uno implementado)
+            // Formato
             if (checkbox4.getState()) {
                 torneoBuilder.setFormato(new FormatoEliminatoriaDirecta());
+            } else if (checkbox6.getState()) {
+                torneoBuilder.setFormato(new FormatoLigaSimple());
             } else {
-                JOptionPane.showMessageDialog(this, "Formato aún no implementado.");
-                return;
+                JOptionPane.showMessageDialog(this, "Formato no válido");
             }
 
             Torneo torneo = torneoBuilder.getResult();

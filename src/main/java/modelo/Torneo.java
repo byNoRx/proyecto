@@ -165,4 +165,9 @@ public class Torneo {
     public void setDiasEntreRondas(int diasEntreRondas) {
         this.diasEntreRondas = diasEntreRondas;
     }
+
+    @Override
+    public String toString() {
+        return nombre + " (" + disciplina + ")";
+    }
 }

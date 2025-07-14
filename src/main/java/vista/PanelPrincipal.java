@@ -34,7 +34,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
     public PanelPrincipal() {
         DefaultListModel<Torneo> modeloCompartido = new DefaultListModel<>();
 
-        //------
+        /*
         TorneoBuilder torneoBuilder = new TorneoBuilder();
         torneoBuilder.setNombre("Torneo");
         torneoBuilder.setFormato(new FormatoEliminatoriaDirecta());
@@ -42,9 +42,9 @@ public class PanelPrincipal extends JPanel implements ActionListener {
         torneoBuilder.setFechaDeInicio(LocalDate.now());
         torneoBuilder.setDiasEntreRondas(1);
         Torneo torneo = torneoBuilder.getResult();
-        //--------------
-
         modeloCompartido.addElement(torneo);
+        */
+
         //modeloCompartido.addElement("Torneo A");
         //modeloCompartido.addElement("Torneo B");
         //modeloCompartido.addElement("Torneo C");

@@ -1,6 +1,6 @@
 package vista;
 
-import modelo.Torneo;
+import modelo.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -10,76 +10,55 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Clase que representa un panel que se usa para gestionar los torneos,
- * por ejemplo para añadir participantes y generar los partidos.
+ * Panel para gestionar torneos: inscribir participantes, generar partidos y registrar resultados.
  */
 public class PanelGestionarTorneos extends JPanel implements ActionListener {
-    private JButton botonCrear, botonListar, botonEliminar, botonEditar, botonResult;
+    private JButton botonCrear, botonListar, botonEliminar, botonResult;
+    private JButton botonJugador, botonVolver;
+    private JButton guardarEquipo, volverEquipo;
+    private JButton guardarJugador, volverJugador;
+    private JButton guardarResultado, volverResultado;
+    private JButton volverJugadorEquipo;
+
     private JList<Torneo> torneoList;
-    private String seleccionado;
+    private Torneo torneoSeleccionado;
+
     private JPanel panelBotones;
-    private JButton botonEquipo;
-    private JButton botonJugador;
-    private JButton botonVolver;
-    private JButton guardarEquipo;
-    private JButton volverEquipo;
-    private JButton guardarJugador;
-    private JButton volverJugador;
 
-    private JTextField campo1;
-    private JTextField campo2;
-    private JTextField campo3;
-    private JTextField campo4;
+    private JTextField campo1, campo2, campo3;
+    private JTextField campo1Jugador, campo2Jugador, campo3Jugador, campo4Jugador;
+    private JTextField campoNumeroPartido, campoPuntajeA, campoPuntajeB;
+    private JTextField campoNombreJugadorEquipo, campoEmailJugadorEquipo, campoTelefonoJugadorEquipo, campoDireccionJugadorEquipo;
 
-    private JTextField campo1Jugador;
-    private JTextField campo2Jugador;
-    private JTextField campo3Jugador;
-    private JTextField campo4Jugador;
-    private JTextField campo5Jugador;
-
-    /**
-     * Metodo constructor
-     *
-     * @param torneoModel
-     */
     public PanelGestionarTorneos(DefaultListModel<Torneo> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 800));
         setBackground(Color.LIGHT_GRAY);
 
-        botonEquipo = new JButton("Inscribir equipo");
-        botonEquipo.addActionListener(this);
-        botonJugador = new JButton("Inscribir jugador");
-        botonJugador.addActionListener(this);
-        botonVolver = new JButton("Volver");
-        botonVolver.addActionListener(this);
-
+        // Lista de torneos
         JPanel panelLista = new JPanel(new BorderLayout());
-        JLabel titleLabel = new JLabel("Torneos");
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Torneos", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         panelLista.add(titleLabel, BorderLayout.NORTH);
 
         torneoList = new JList<>(torneoModel);
         torneoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(torneoList);
-        panelLista.add(scrollPane, BorderLayout.CENTER);
-
         torneoList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    seleccionado = String.valueOf(torneoList.getSelectedValue());
-                    if (seleccionado != null) {
-                        add(panelBotones, BorderLayout.SOUTH); //
-                        revalidate();
-                        repaint();
-                        System.out.println(seleccionado);
+                    torneoSeleccionado = torneoList.getSelectedValue();
+                    if (torneoSeleccionado != null && !isAncestorOf(panelBotones)) {
+                        add(panelBotones, BorderLayout.SOUTH);
+                        refrescarPanel();
                     }
                 }
             }
         });
+        panelLista.add(new JScrollPane(torneoList), BorderLayout.CENTER);
+        add(panelLista, BorderLayout.CENTER);
 
+        // Panel de botones
         panelBotones = new JPanel();
         panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
         panelBotones.setBackground(Color.LIGHT_GRAY);
@@ -88,11 +67,10 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
         botonCrear = new JButton("Ver lista de participantes");
         botonListar = new JButton("Inscribir participantes");
         botonEliminar = new JButton("Generar partidos");
-        botonEditar = new JButton("Eliminar participantes");
         botonResult = new JButton("Registrar resultados");
 
+        JButton[] botones = {botonCrear, botonListar, botonEliminar, botonResult};
         Dimension botonSize = new Dimension(200, 40);
-        JButton[] botones = { botonCrear, botonListar, botonEliminar, botonEditar, botonResult};
         for (JButton boton : botones) {
             boton.setAlignmentX(Component.CENTER_ALIGNMENT);
             boton.setMaximumSize(botonSize);
@@ -101,150 +79,226 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
             panelBotones.add(Box.createVerticalStrut(15));
         }
 
-        add(panelLista, BorderLayout.CENTER);
+        // Botones
+        botonJugador = new JButton("Inscribir jugador");
+        botonJugador.addActionListener(this);
+        botonVolver = new JButton("Volver");
+        botonVolver.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (seleccionado != null) {
-            if (e.getSource() == botonCrear) {
+        if (torneoSeleccionado == null) return;
+
+        if (e.getSource() == botonListar) {
+            mostrarBotonesParticipante();
+
+        } else if (e.getSource() == botonVolver) {
+            restaurarBotonesIniciales();
+
+        } else if (e.getSource() == guardarEquipo) {
+            EquipoBuilder builder = new EquipoBuilder();
+            builder.setNombre(campo1.getText());
+            builder.setEmail(campo2.getText());
+            builder.setTelefono(campo3.getText());
+            Equipo equipo = builder.getResult();
+
+            torneoSeleccionado.addParticipante(equipo);
+            JOptionPane.showMessageDialog(this, "Equipo guardado: " + equipo.getNombre());
+            mostrarBotonesParticipante();
+
+        } else if (e.getSource() == volverEquipo) {
+            mostrarBotonesParticipante();
+
+        } else if (e.getSource() == botonJugador) {
+            mostrarFormularioJugador();
+
+        } else if (e.getSource() == guardarJugador) {
+            JugadorBuilder builder = new JugadorBuilder();
+            builder.setNombre(campo1Jugador.getText());
+            builder.setEmail(campo2Jugador.getText());
+            builder.setTelefono(campo3Jugador.getText());
+            builder.setDireccion(campo4Jugador.getText());
+            Jugador jugador = builder.getResult();
+
+            torneoSeleccionado.addParticipante(jugador);
+            JOptionPane.showMessageDialog(this, "Jugador guardado: " + jugador.getNombre());
+            mostrarBotonesParticipante();
+
+        } else if (e.getSource() == volverJugador) {
+            mostrarBotonesParticipante();
+
+        } else if (e.getSource() == botonCrear) {
+            JOptionPane.showMessageDialog(this, torneoSeleccionado.getParticipantes().toString());
+
+        } else if (e.getSource() == botonEliminar) {
+            try {
+                torneoSeleccionado.generarPartidos();
+                JOptionPane.showMessageDialog(this, "Partidos generados correctamente");
+            } catch (ParticipantesInsuficientesException ex) {
+                JOptionPane.showMessageDialog(this, "No hay suficientes participantes para generar partidos.");
             }
 
-            if (e.getSource() == botonListar) {
-                panelBotones.removeAll();
+        } else if (e.getSource() == botonResult) {
+            mostrarFormularioResultado();
 
-                botonEquipo.setAlignmentX(Component.CENTER_ALIGNMENT);
-                botonJugador.setAlignmentX(Component.CENTER_ALIGNMENT);
-                botonVolver.setAlignmentX(Component.CENTER_ALIGNMENT);
-                panelBotones.add(Box.createVerticalStrut(20));
-                panelBotones.add(botonEquipo);
-                panelBotones.add(Box.createVerticalStrut(15));
-                panelBotones.add(botonJugador);
-                panelBotones.add(Box.createVerticalStrut(15));
-                panelBotones.add(botonVolver);
+        } else if (e.getSource() == guardarResultado) {
+            try {
+                int numero = Integer.parseInt(campoNumeroPartido.getText()) - 1;
+                int puntosA = Integer.parseInt(campoPuntajeA.getText());
+                int puntosB = Integer.parseInt(campoPuntajeB.getText());
 
-                revalidate();
-                repaint();
-            }
-
-            if (e.getSource() == botonVolver) {
-                panelBotones.removeAll();
-                Dimension botonSize = new Dimension(200, 40);
-                JButton[] botones = {botonCrear, botonListar, botonEliminar, botonEditar, botonResult};
-                for (JButton boton : botones) {
-                    boton.setAlignmentX(Component.CENTER_ALIGNMENT);
-                    boton.setMaximumSize(botonSize);
-                    panelBotones.add(boton);
-                    panelBotones.add(Box.createVerticalStrut(15));
-
-                    revalidate();
-                    repaint();
+                if (numero < 0 || numero >= torneoSeleccionado.getPartidos().size()) {
+                    JOptionPane.showMessageDialog(this, "Número de partido inválido");
+                    return;
                 }
+
+                Partido partido = torneoSeleccionado.getPartidos().get(numero);
+                partido.setPuntajeA(puntosA);
+                partido.setPuntajeB(puntosB);
+                partido.setTerminado(true);
+
+                JOptionPane.showMessageDialog(this, "Resultado guardado para partido " + (numero + 1));
+                restaurarBotonesIniciales();
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al ingresar los datos del resultado.");
             }
 
-            if(e.getSource() == botonEquipo) {
-                panelBotones.removeAll();
+        } else if (e.getSource() == volverResultado) {
+            restaurarBotonesIniciales();
 
-                campo1 = new JTextField(15);
-                campo2 = new JTextField(15);
-                campo3 = new JTextField(15);
-                campo4 = new JTextField(15);
-
-                guardarEquipo = new JButton("Guardar equipo");
-                guardarEquipo.addActionListener(this);
-                volverEquipo = new JButton("Volver");
-                volverEquipo.addActionListener(this);
-
-                campo1.setMaximumSize(new Dimension(200, 30));
-                campo2.setMaximumSize(new Dimension(200, 30));
-                campo3.setMaximumSize(new Dimension(200, 30));
-                campo4.setMaximumSize(new Dimension(200, 30));
-
-                panelBotones.add(Box.createVerticalStrut(20));
-                panelBotones.add(new JLabel("Definir nombre"));
-                panelBotones.add(campo1);
-                panelBotones.add(Box.createVerticalStrut(10));
-                panelBotones.add(new JLabel("Definir email"));
-                panelBotones.add(campo2);
-                panelBotones.add(Box.createVerticalStrut(10));
-                panelBotones.add(new JLabel("definir teléfono"));
-                panelBotones.add(campo3);
-                panelBotones.add(Box.createVerticalStrut(10));
-                panelBotones.add(Box.createVerticalStrut(20));
-                panelBotones.add(guardarEquipo);
-                panelBotones.add(Box.createVerticalStrut(10));
-                panelBotones.add(volverEquipo);
-
-                revalidate();
-                repaint();
-            }
-
-            if (e.getSource() == volverEquipo) {
-                panelBotones.removeAll();
-
-                panelBotones.add(botonEquipo);
-                panelBotones.add(Box.createVerticalStrut(15));
-                panelBotones.add(botonJugador);
-                panelBotones.add(Box.createVerticalStrut(15));
-                panelBotones.add(botonVolver);
-
-                revalidate();
-                repaint();
-            }
-
-            if (e.getSource() == botonJugador) {
-                panelBotones.removeAll();
-
-                guardarJugador = new JButton("Guardar jugador");
-                guardarJugador.addActionListener(this);
-                volverJugador = new JButton("Volver");
-                volverJugador.addActionListener(this);
-
-                campo1Jugador = new JTextField(15);
-                campo2Jugador = new JTextField(15);
-                campo3Jugador = new JTextField(15);
-                campo4Jugador = new JTextField(15);
-                campo5Jugador = new JTextField(15);
-
-                campo1Jugador.setMaximumSize(new Dimension(200, 30));
-                campo2Jugador.setMaximumSize(new Dimension(200, 30));
-                campo3Jugador.setMaximumSize(new Dimension(200, 30));
-                campo4Jugador.setMaximumSize(new Dimension(200, 30));
-                campo5Jugador.setMaximumSize(new Dimension(200, 30));
-
-                panelBotones.add(Box.createVerticalStrut(20));
-                panelBotones.add(new JLabel("Definir nombre"));
-                panelBotones.add(campo1Jugador);
-                panelBotones.add(Box.createVerticalStrut(10));
-                panelBotones.add(new JLabel("Definir email"));
-                panelBotones.add(campo2Jugador);
-                panelBotones.add(Box.createVerticalStrut(10));
-                panelBotones.add(new JLabel("definir teléfono"));
-                panelBotones.add(campo3Jugador);
-                panelBotones.add(Box.createVerticalStrut(10));
-                panelBotones.add(new JLabel("definir dirección"));
-                panelBotones.add(campo4Jugador);
-                panelBotones.add(Box.createVerticalStrut(10));
-                panelBotones.add(guardarJugador);
-                panelBotones.add(Box.createVerticalStrut(10));
-                panelBotones.add(volverJugador);
-
-                revalidate();
-                repaint();
-            }
-
-            if (e.getSource() == volverJugador) {
-                panelBotones.removeAll();
-
-                panelBotones.add(botonEquipo);
-                panelBotones.add(Box.createVerticalStrut(15));
-                panelBotones.add(botonJugador);
-                panelBotones.add(Box.createVerticalStrut(15));
-                panelBotones.add(botonVolver);
-
-                revalidate();
-                repaint();
-            }
+        } else if (e.getSource() == volverJugadorEquipo) {
+            mostrarBotonesParticipante();
         }
+    }
+
+    private void mostrarBotonesParticipante() {
+        panelBotones.removeAll();
+        panelBotones.add(botonJugador);
+        panelBotones.add(Box.createVerticalStrut(15));
+        panelBotones.add(botonVolver);
+        refrescarPanel();
+    }
+
+    private void restaurarBotonesIniciales() {
+        panelBotones.removeAll();
+        JButton[] botones = {botonCrear, botonListar, botonEliminar, botonResult};
+        for (JButton boton : botones) {
+            panelBotones.add(boton);
+            panelBotones.add(Box.createVerticalStrut(15));
+        }
+        refrescarPanel();
+    }
+
+    private void mostrarFormularioEquipo() {
+        panelBotones.removeAll();
+
+        campo1 = new JTextField(15);
+        campo2 = new JTextField(15);
+        campo3 = new JTextField(15);
+
+        guardarEquipo = new JButton("Guardar equipo");
+        guardarEquipo.addActionListener(this);
+        volverEquipo = new JButton("Volver");
+        volverEquipo.addActionListener(this);
+
+        panelBotones.add(new JLabel("Nombre"));
+        panelBotones.add(campo1);
+        panelBotones.add(new JLabel("Email"));
+        panelBotones.add(campo2);
+        panelBotones.add(new JLabel("Teléfono"));
+        panelBotones.add(campo3);
+        panelBotones.add(Box.createVerticalStrut(10));
+        panelBotones.add(guardarEquipo);
+        panelBotones.add(Box.createVerticalStrut(5));
+        panelBotones.add(volverEquipo);
+
+        refrescarPanel();
+    }
+
+    private void mostrarFormularioJugador() {
+        panelBotones.removeAll();
+
+        campo1Jugador = new JTextField(15);
+        campo2Jugador = new JTextField(15);
+        campo3Jugador = new JTextField(15);
+        campo4Jugador = new JTextField(15);
+
+        guardarJugador = new JButton("Guardar jugador");
+        guardarJugador.addActionListener(this);
+        volverJugador = new JButton("Volver");
+        volverJugador.addActionListener(this);
+
+        panelBotones.add(new JLabel("Nombre"));
+        panelBotones.add(campo1Jugador);
+        panelBotones.add(new JLabel("Email"));
+        panelBotones.add(campo2Jugador);
+        panelBotones.add(new JLabel("Teléfono"));
+        panelBotones.add(campo3Jugador);
+        panelBotones.add(new JLabel("Dirección"));
+        panelBotones.add(campo4Jugador);
+        panelBotones.add(Box.createVerticalStrut(10));
+        panelBotones.add(guardarJugador);
+        panelBotones.add(Box.createVerticalStrut(5));
+        panelBotones.add(volverJugador);
+
+        refrescarPanel();
+    }
+
+    private void mostrarFormularioJugadorParaEquipo() {
+        panelBotones.removeAll();
+
+        campoNombreJugadorEquipo = new JTextField(15);
+        campoEmailJugadorEquipo = new JTextField(15);
+        campoTelefonoJugadorEquipo = new JTextField(15);
+        campoDireccionJugadorEquipo = new JTextField(15);
+
+        volverJugadorEquipo = new JButton("Volver");
+        volverJugadorEquipo.addActionListener(this);
+
+        panelBotones.add(new JLabel("Nombre del jugador"));
+        panelBotones.add(campoNombreJugadorEquipo);
+        panelBotones.add(new JLabel("Email"));
+        panelBotones.add(campoEmailJugadorEquipo);
+        panelBotones.add(new JLabel("Teléfono"));
+        panelBotones.add(campoTelefonoJugadorEquipo);
+        panelBotones.add(new JLabel("Dirección"));
+        panelBotones.add(campoDireccionJugadorEquipo);
+        panelBotones.add(Box.createVerticalStrut(5));
+        panelBotones.add(volverJugadorEquipo);
+
+        refrescarPanel();
+    }
+
+    private void mostrarFormularioResultado() {
+        panelBotones.removeAll();
+
+        campoNumeroPartido = new JTextField(5);
+        campoPuntajeA = new JTextField(5);
+        campoPuntajeB = new JTextField(5);
+
+        guardarResultado = new JButton("Guardar resultado");
+        guardarResultado.addActionListener(this);
+        volverResultado = new JButton("Volver");
+        volverResultado.addActionListener(this);
+
+        panelBotones.add(new JLabel("Número del partido"));
+        panelBotones.add(campoNumeroPartido);
+        panelBotones.add(new JLabel("Puntaje equipo A:"));
+        panelBotones.add(campoPuntajeA);
+        panelBotones.add(new JLabel("Puntaje equipo B:"));
+        panelBotones.add(campoPuntajeB);
+        panelBotones.add(Box.createVerticalStrut(10));
+        panelBotones.add(guardarResultado);
+        panelBotones.add(Box.createVerticalStrut(5));
+        panelBotones.add(volverResultado);
+
+        refrescarPanel();
+    }
+
+    private void refrescarPanel() {
+        revalidate();
+        repaint();
     }
 }

@@ -5,52 +5,33 @@ import modelo.Torneo;
 import modelo.TorneoBuilder;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
-/**
- * Clase que representa un panel que se usa para crear torneos
- */
 public class PanelCrearTorneo extends JPanel implements ActionListener {
-    // Crear boton
     private JButton botonLista;
-
-    // Crear checkbox
-    private Checkbox checkbox1, checkbox2, checkbox3, checkbox4, checkbox5, checkbox6;
-
-    // Crear campos para escribir texto
+    private Checkbox checkbox4, checkbox6;
     private JTextField textFieldNombre;
     private JTextField textFieldDisciplina;
     private JTextField textFieldFecha;
-    private JTextField textFieldDias;
-
-    // Crear paneles
-    private JPanel topPanel;
-    private JPanel centerPanel;
-    private JPanel lowerPanel;
-
+    private JFormattedTextField textFieldDias;
+    private JPanel topPanel, centerPanel, lowerPanel;
     private DefaultListModel<Torneo> torneoModel;
 
-    /**
-     * Metodo constructor
-     *
-     * @param torneoModel
-     */
     public PanelCrearTorneo(DefaultListModel<Torneo> torneoModel) {
         this.torneoModel = torneoModel;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 900));
 
         CheckboxGroup grupo2 = new CheckboxGroup();
-
-
-        checkbox4 = new Checkbox("Eliminatoria Directa", grupo2, false);
-        //checkbox5 = new Checkbox("Eliminación doble", grupo2, false);
+        checkbox4 = new Checkbox("Eliminatoria Directa", grupo2, true); // activado por defecto
         checkbox6 = new Checkbox("Liga", grupo2, false);
 
-        // Panel superior con nombre y disciplina
         topPanel = new JPanel(new GridLayout(5, 1, 10, 10));
         add(topPanel, BorderLayout.NORTH);
 
@@ -73,26 +54,32 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
         topPanel.add(disciplinaPanel);
 
         JPanel fechaPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel fechaLabel = new JLabel(" Fecha de inicio:");
+        JLabel fechaLabel = new JLabel(" Fecha de inicio (YYYY-MM-DD):");
         textFieldFecha = new JTextField(15);
         fechaPanel.add(fechaLabel);
         fechaPanel.add(textFieldFecha);
         topPanel.add(fechaPanel);
 
         JPanel diaPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel diaLabel = new JLabel("Dias entre partido:");
-        textFieldDias = new JTextField(15);
+        JLabel diaLabel = new JLabel("Días entre rondas:");
+        NumberFormat formato = NumberFormat.getIntegerInstance();
+        formato.setGroupingUsed(false);
+        NumberFormatter formatter = new NumberFormatter(formato);
+        formatter.setValueClass(Integer.class);
+        formatter.setAllowsInvalid(false);
+        formatter.setMinimum(1);
+        textFieldDias = new JFormattedTextField(formatter);
+        textFieldDias.setColumns(15);
         diaPanel.add(diaLabel);
         diaPanel.add(textFieldDias);
         topPanel.add(diaPanel);
 
         centerPanel = new JPanel(new GridLayout(1, 3, 20, 20));
         centerPanel.setBorder(BorderFactory.createTitledBorder("Opciones de Formato"));
-        add(centerPanel, BorderLayout.CENTER);
         centerPanel.setBackground(Color.LIGHT_GRAY);
+        add(centerPanel, BorderLayout.CENTER);
 
         centerPanel.add(checkbox4);
-        //centerPanel.add(checkbox5);
         centerPanel.add(checkbox6);
 
         lowerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -108,23 +95,52 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonLista) {
+            String nombre = textFieldNombre.getText().trim();
+            String disciplina = textFieldDisciplina.getText().trim();
+            String fechaTexto = textFieldFecha.getText().trim();
+            Object diasObj = textFieldDias.getValue();
+
+            // Validación general
+            if (nombre.isEmpty() || disciplina.isEmpty() || fechaTexto.isEmpty() || diasObj == null) {
+                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
+                return;
+            }
+
+            LocalDate fecha;
+            try {
+                fecha = LocalDate.parse(fechaTexto);
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(this, "La fecha debe estar en formato YYYY-MM-DD.");
+                return;
+            }
+
+            int dias = ((Number) diasObj).intValue();
+
             TorneoBuilder torneoBuilder = new TorneoBuilder();
-            torneoBuilder.setNombre(textFieldNombre.getText());
-            torneoBuilder.setDisciplina(textFieldDisciplina.getText());
-            torneoBuilder.setFormato(new FormatoEliminatoriaDirecta());
-            torneoBuilder.setFechaDeInicio(LocalDate.parse(textFieldFecha.getText()));
-            torneoBuilder.setDiasEntreRondas(Integer.parseInt(textFieldDias.getText()));
+            torneoBuilder.setNombre(nombre);
+            torneoBuilder.setDisciplina(disciplina);
+            torneoBuilder.setFechaDeInicio(fecha);
+            torneoBuilder.setDiasEntreRondas(dias);
+
+            // Formato (por ahora, solo uno implementado)
+            if (checkbox4.getState()) {
+                torneoBuilder.setFormato(new FormatoEliminatoriaDirecta());
+            } else {
+                JOptionPane.showMessageDialog(this, "Formato aún no implementado.");
+                return;
+            }
+
             Torneo torneo = torneoBuilder.getResult();
-
-        if (torneo != null) {
             torneoModel.addElement(torneo);
-            textFieldNombre.setText("");
-            JOptionPane.showMessageDialog(this,"torneo creado");
-        } else {
-            JOptionPane.showMessageDialog(this, "El campo de nombre está vacío.");
-        }
 
-        updateScreen();
+            // Limpiar campos
+            textFieldNombre.setText("");
+            textFieldDisciplina.setText("");
+            textFieldFecha.setText("");
+            textFieldDias.setValue(null);
+            JOptionPane.showMessageDialog(this, "Torneo creado exitosamente.");
+
+            updateScreen();
         }
     }
 }

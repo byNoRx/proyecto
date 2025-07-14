@@ -1,33 +1,44 @@
 package vista;
 
+import modelo.FormatoEliminatoriaDirecta;
+import modelo.Torneo;
+import modelo.TorneoBuilder;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 /**
  * Clase que representa un panel que se usa para crear torneos
  */
 public class PanelCrearTorneo extends JPanel implements ActionListener {
+    // Crear boton
     private JButton botonLista;
 
+    // Crear checkbox
     private Checkbox checkbox1, checkbox2, checkbox3, checkbox4, checkbox5, checkbox6;
 
+    // Crear campos para escribir texto
     private JTextField textFieldNombre;
     private JTextField textFieldDisciplina;
     private JTextField textFieldFecha;
     private JTextField textFieldDias;
+
+    // Crear paneles
     private JPanel topPanel;
     private JPanel centerPanel;
     private JPanel lowerPanel;
-    private DefaultListModel<String> torneoModel;
+
+    private DefaultListModel<Torneo> torneoModel;
 
     /**
      * Metodo constructor
      *
      * @param torneoModel
      */
-    public PanelCrearTorneo(DefaultListModel<String> torneoModel) {
+    public PanelCrearTorneo(DefaultListModel<Torneo> torneoModel) {
         this.torneoModel = torneoModel;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 900));
@@ -97,10 +108,16 @@ public class PanelCrearTorneo extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonLista) {
-        String nombre = textFieldNombre.getText().trim();
+            TorneoBuilder torneoBuilder = new TorneoBuilder();
+            torneoBuilder.setNombre(textFieldNombre.getText());
+            torneoBuilder.setDisciplina(textFieldDisciplina.getText());
+            torneoBuilder.setFormato(new FormatoEliminatoriaDirecta());
+            torneoBuilder.setFechaDeInicio(LocalDate.parse(textFieldFecha.getText()));
+            torneoBuilder.setDiasEntreRondas(Integer.parseInt(textFieldDias.getText()));
+            Torneo torneo = torneoBuilder.getResult();
 
-        if (!nombre.isEmpty()) {
-            torneoModel.addElement(nombre);
+        if (torneo != null) {
+            torneoModel.addElement(torneo);
             textFieldNombre.setText("");
             JOptionPane.showMessageDialog(this,"torneo creado");
         } else {

@@ -1,5 +1,7 @@
 package vista;
 
+import modelo.Torneo;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -9,14 +11,14 @@ import java.awt.*;
  * Clase que representa un panel que se usa para eliminar los torneos que han sido creados anteriormente
  */
 public class PanelEliminarTorneos extends JPanel {
-    private JList<String> torneoList;
+    private JList<Torneo> torneoList;
 
     /**
      * Metodo cosntructor
      *
      * @param torneoModel
      */
-    public PanelEliminarTorneos(DefaultListModel<String> torneoModel) {
+    public PanelEliminarTorneos(DefaultListModel<Torneo> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 600));
         setBackground(Color.LIGHT_GRAY);
@@ -31,7 +33,7 @@ public class PanelEliminarTorneos extends JPanel {
 
         torneoList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                String seleccionado = torneoList.getSelectedValue();
+                Torneo seleccionado = torneoList.getSelectedValue();
                 if (seleccionado != null) {
                     int respuesta = JOptionPane.showConfirmDialog(PanelEliminarTorneos.this, "¿Deseas eliminar el torneo \"" + seleccionado + "\"?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 

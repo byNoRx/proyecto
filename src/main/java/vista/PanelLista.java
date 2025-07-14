@@ -1,5 +1,7 @@
 package vista;
 
+import modelo.Torneo;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,9 +9,9 @@ import java.awt.*;
  * Clase que simplemente muesta una lista de los torneos que han sido creados
  */
 public class PanelLista extends JPanel {
-    private JList<String> torneoList; // lista de torneos
+    private JList<Torneo> torneoList;
 
-    public PanelLista(DefaultListModel<String> torneoModel) {
+    public PanelLista(DefaultListModel<Torneo> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 600));
         setBackground(Color.LIGHT_GRAY);

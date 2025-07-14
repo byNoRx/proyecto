@@ -1,9 +1,17 @@
 package vista;
 
+import modelo.FormatoEliminatoriaDirecta;
+import modelo.FormatoTorneo;
+import modelo.Torneo;
+import modelo.TorneoBuilder;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Clase que representa un panel con una lista de botones interactuables,
@@ -11,18 +19,36 @@ import java.awt.event.ActionListener;
  */
 public class PanelPrincipal extends JPanel implements ActionListener {
 
+    // Declarar paneles
     private JPanel BigPanel, panel1, panel2, BigPanel2, panel3, BigPanel3, panel4, BigPanel4, panel5, BigPanel5,panel6, BigPanel6;
+
+    // Declarar botones
     private JButton boton1, boton2, boton3, boton4, boton5, boton6, boton7, boton8, boton9, boton10;
+
+    // Declarar lista de torneos
+    public ArrayList<Torneo> torneos = new ArrayList<>();
 
     /**
      * Metodo constructor
      */
     public PanelPrincipal() {
-        DefaultListModel<String> modeloCompartido = new DefaultListModel<>();
-        modeloCompartido.addElement("Torneo A");
-        modeloCompartido.addElement("Torneo B");
-        modeloCompartido.addElement("Torneo C");
-        modeloCompartido.addElement("Torneo D");
+        DefaultListModel<Torneo> modeloCompartido = new DefaultListModel<>();
+
+        //------
+        TorneoBuilder torneoBuilder = new TorneoBuilder();
+        torneoBuilder.setNombre("Torneo");
+        torneoBuilder.setFormato(new FormatoEliminatoriaDirecta());
+        torneoBuilder.setDisciplina("Disciplina");
+        torneoBuilder.setFechaDeInicio(LocalDate.now());
+        torneoBuilder.setDiasEntreRondas(1);
+        Torneo torneo = torneoBuilder.getResult();
+        //--------------
+
+        modeloCompartido.addElement(torneo);
+        //modeloCompartido.addElement("Torneo A");
+        //modeloCompartido.addElement("Torneo B");
+        //modeloCompartido.addElement("Torneo C");
+        //modeloCompartido.addElement("Torneo D");
 
         PanelLista panelLista = new PanelLista(modeloCompartido);
         PanelEliminarTorneos panelEliminar = new PanelEliminarTorneos(modeloCompartido);

@@ -1,5 +1,7 @@
 package vista;
 
+import modelo.Torneo;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -13,7 +15,7 @@ import java.awt.event.ActionListener;
  */
 public class PanelGestionarTorneos extends JPanel implements ActionListener {
     private JButton botonCrear, botonListar, botonEliminar, botonEditar, botonResult;
-    private JList<String> torneoList;
+    private JList<Torneo> torneoList;
     private String seleccionado;
     private JPanel panelBotones;
     private JButton botonEquipo;
@@ -40,7 +42,7 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
      *
      * @param torneoModel
      */
-    public PanelGestionarTorneos(DefaultListModel<String> torneoModel) {
+    public PanelGestionarTorneos(DefaultListModel<Torneo> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 800));
         setBackground(Color.LIGHT_GRAY);
@@ -67,7 +69,7 @@ public class PanelGestionarTorneos extends JPanel implements ActionListener {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    seleccionado = torneoList.getSelectedValue();
+                    seleccionado = String.valueOf(torneoList.getSelectedValue());
                     if (seleccionado != null) {
                         add(panelBotones, BorderLayout.SOUTH); //
                         revalidate();

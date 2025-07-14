@@ -14,10 +14,7 @@ public class Ventana extends JFrame {
         setSize(1200, 900);
         setLayout(new BorderLayout());
 
-        // Agregar panel de lista a la izquierda
-
-
-        // Agregar panel principal al centro
+        // Agregar panel principal a la izquierda
         add(new PanelPrincipal(), BorderLayout.WEST);
 
         setVisible(true);

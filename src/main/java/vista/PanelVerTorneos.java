@@ -10,76 +10,83 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Clase que muestra un panel que permite ver los torneos que han sido creados
+ * Clase que muestra un panel que permite ver los torneos que han sido creados y sus estadísticas
  */
 public class PanelVerTorneos extends JPanel implements ActionListener {
-    private String seleccionado;
-    private JButton botonVerInfo;
-    private JButton botonVolver;
     private JList<Torneo> torneoList;
-    private JPanel panelBotones2;
+    private JLabel labelParticipantes;
+    private JLabel labelPartidos;
+    private JLabel labelPartidosJugados;
+    private JLabel labelPartidosPorJugar;
+    private JLabel labelPuntos;
 
-    /**
-     * Metodo constructor
-     *
-     * @param torneoModel
-     */
     public PanelVerTorneos(DefaultListModel<Torneo> torneoModel) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(600, 600));
         setBackground(Color.LIGHT_GRAY);
 
-        JLabel titleLabel = new JLabel("Torneos ");
+        JLabel titleLabel = new JLabel("Torneos");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         add(titleLabel, BorderLayout.NORTH);
 
         torneoList = new JList<>(torneoModel);
         torneoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
         JScrollPane scrollPane = new JScrollPane(torneoList);
         add(scrollPane, BorderLayout.CENTER);
+
+        // Panel inferior con la información del torneo
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBackground(Color.LIGHT_GRAY);
+        infoPanel.setBorder(BorderFactory.createTitledBorder("Resumen del Torneo"));
+
+        labelParticipantes = new JLabel("Participantes: ");
+        labelPartidos = new JLabel("Partidos: ");
+        labelPartidosJugados = new JLabel("Partidos jugados: ");
+        labelPartidosPorJugar  = new JLabel("Partidos por jugar: ");
+        labelPuntos = new JLabel("Puntos totales: ");
+
+        labelParticipantes.setAlignmentX(Component.LEFT_ALIGNMENT);
+        labelPartidos.setAlignmentX(Component.LEFT_ALIGNMENT);
+        labelPartidosJugados.setAlignmentX(Component.LEFT_ALIGNMENT);
+        labelPartidos.setAlignmentX(Component.LEFT_ALIGNMENT);
+        labelPuntos.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        infoPanel.add(Box.createVerticalStrut(10));
+        infoPanel.add(labelParticipantes);
+        infoPanel.add(Box.createVerticalStrut(5));
+        infoPanel.add(labelPartidos);
+        infoPanel.add(Box.createVerticalStrut(5));
+        infoPanel.add(labelPartidosJugados);
+        infoPanel.add(Box.createVerticalStrut(5));
+        infoPanel.add(labelPartidosPorJugar);
+        infoPanel.add(Box.createVerticalStrut(5));
+        infoPanel.add(labelPuntos);
+        infoPanel.add(Box.createVerticalStrut(10));
+
+        add(infoPanel, BorderLayout.SOUTH);
 
         torneoList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    seleccionado = String.valueOf(torneoList.getSelectedValue());
+                    Torneo seleccionado = torneoList.getSelectedValue();
                     if (seleccionado != null) {
-                        add(panelBotones2, BorderLayout.SOUTH); //
+                        labelParticipantes.setText("Participantes: " + seleccionado.getParticipantes().size());
+                        labelPartidos.setText("Partidos: " + seleccionado.getPartidos().size());
+                        labelPartidosJugados.setText("Partidos jugados: " + seleccionado.getTotalPartidosJugados());
+                        labelPartidosPorJugar.setText("Partidos por jugar: " + (seleccionado.getPartidos().size() - seleccionado.getTotalPartidosJugados()));
+                        labelPuntos.setText("Puntos totales: " + seleccionado.getTotalPuntos());
                         revalidate();
                         repaint();
-                        System.out.println(seleccionado);
                     }
                 }
             }
         });
-
-
-        botonVerInfo = new JButton("Inscribir equipo");
-        botonVerInfo.addActionListener(this);
-        botonVolver = new JButton("Inscribir jugador");
-        botonVolver.addActionListener(this);
-
-        panelBotones2 = new JPanel();
-        panelBotones2.setLayout(new BoxLayout(panelBotones2, BoxLayout.Y_AXIS));
-        panelBotones2.setBackground(Color.LIGHT_GRAY);
-        panelBotones2.add(Box.createVerticalStrut(20));
-
-        Dimension botonSize = new Dimension(200, 40);
-        JButton[] botones = {botonVerInfo,botonVolver };
-        for (JButton boton : botones) {
-            boton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            boton.setMaximumSize(botonSize);
-            boton.addActionListener(this);
-            panelBotones2.add(boton);
-            panelBotones2.add(Box.createVerticalStrut(15));
-        }
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 }
